@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: rubik;
+  font-style: normal;
+  font-weight: 300;
+  src: url(/assets/fonts/rubik-light.woff2) format("woff2"), url(/assets/fonts/rubik-light.woff) format("woff"), url(/assets/fonts/rubik-light.ttf) format("truetype");
+  font-display: swap
+}
+
+@font-face {
+  font-family: rubik;
+  font-style: normal;
+  font-weight: 400;
+  src: url(/assets/fonts/rubik-regular.woff2) format("woff2"), url(/assets/fonts/rubik-regular.woff) format("woff"), url(/assets/fonts/rubik-regular.ttf) format("truetype");
+  font-display: swap
+}
+
+@font-face {
+  font-family: rubik;
+  font-style: normal;
+  font-weight: 500;
+  src: url(/assets/fonts/rubik-medium.woff2) format("woff2"), url(/assets/fonts/rubik-medium.woff) format("woff"), url(/assets/fonts/rubik-medium.ttf) format("truetype");
+  font-display: swap
+}
+
+@font-face {
+  font-family: rubik;
+  font-style: normal;
+  font-weight: 700;
+  src: url(/assets/fonts/rubik-bold.woff2) format("woff2"), url(/assets/fonts/rubik-bold.woff) format("woff"), url(/assets/fonts/rubik-bold.ttf) format("truetype");
+  font-display: swap
+}
