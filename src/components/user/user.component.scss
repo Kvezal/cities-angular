@@ -1,0 +1,25 @@
+:host {
+  margin-top: 11px;
+  margin-bottom: 15px;
+  margin-left: 30px;
+
+  &:hover,
+  &:focus {
+    text-shadow: .5px 0 0, -.5px 0 0;
+  }
+
+  & .user__avatar-wrapper {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    vertical-align: bottom;
+
+    font-size: 0;
+    line-height: 0;
+  }
+
+  & .user__login {
+    padding-right: 8px;
+  }
+}
