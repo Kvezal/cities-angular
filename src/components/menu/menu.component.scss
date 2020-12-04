@@ -1,0 +1,50 @@
+.menu__list {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 16px 3px 33px;
+
+  list-style: none;
+}
+
+.menu__item {
+  display: block;
+  margin-right: 36px;
+  margin-bottom: 19px
+}
+
+.menu__link {
+  display: block;
+  padding: 9px 21px 6px 11px;
+
+  color: inherit;
+  font-size: 19px;
+  font-weight: 300;
+  line-height: 1.211;
+  font-style: oblique;
+
+  text-decoration: none;
+  border-radius: 3px;
+
+  transform: skew(-15deg);
+  transition: background .3s, color .3s, text-shadow .3s;
+
+  &:focus,
+  &:hover {
+    text-shadow: 1px 0 0, .5px 0 0, -1px 0 0;
+  }
+
+  &--active {
+    color: #fff;
+    text-shadow: 1px 0 0, .5px 0 0, -1px 0 0;
+
+    background-color: #4481c3
+  }
+
+  & span {
+    display: block;
+
+    transform: skew(15deg)
+  }
+}
