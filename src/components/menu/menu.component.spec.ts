@@ -120,7 +120,7 @@ describe('MenuComponent', () => {
       });
     });
 
-    fit(`should set active class correctly`, async () => {
+    it(`should set active class correctly`, async () => {
       component.menuList = menuList;
       fixture.detectChanges();
       await zone.run(async () => {
