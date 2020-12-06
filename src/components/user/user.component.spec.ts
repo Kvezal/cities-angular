@@ -12,9 +12,7 @@ describe(`UserComponent`, () => {
       declarations: [ UserComponent ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(UserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
