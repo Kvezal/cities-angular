@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MapComponent } from './map.component';
 import { MapService } from './map.service';
-import { LeafletService } from './leaflet.service';
+import { LeafletProviderService } from './leaflet-provider.service';
 
 
 @NgModule({
@@ -14,7 +14,7 @@ import { LeafletService } from './leaflet.service';
     CommonModule,
   ],
   providers: [
-    LeafletService,
+    LeafletProviderService,
     MapService,
   ],
   exports: [

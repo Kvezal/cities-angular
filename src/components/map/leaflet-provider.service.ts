@@ -15,7 +15,7 @@ import {
 
 
 @Injectable()
-export class LeafletService {
+export class LeafletProviderService {
   public icon(options: IconOptions): Icon {
     return Leaflet.icon(options);
   }

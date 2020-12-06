@@ -6,7 +6,7 @@ import {
   IMapCity,
   IMapMarker
 } from './map.interface';
-import { LeafletService } from './leaflet.service';
+import { LeafletProviderService } from './leaflet-provider.service';
 
 
 const mapCity: IMapCity = {
@@ -67,7 +67,7 @@ describe('MapComponent', () => {
         MapComponent,
       ],
       providers: [
-        LeafletService,
+        LeafletProviderService,
         MapService,
       ],
     })
