@@ -26,7 +26,6 @@ import {
 })
 export class RatingComponent implements OnInit {
   public stars: IRatingStar[];
-  public starWidth = 13;
 
 
   @Output()
