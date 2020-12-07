@@ -1,0 +1,23 @@
+:host {
+  width: 18px;
+  height: 19px;
+  margin-top: 2px;
+
+  &:hover,
+  &:focus {
+    stroke: #4481c3;
+  }
+
+  &.active svg {
+    stroke: #4481c3;
+    fill: #4481c3;
+  }
+}
+
+svg {
+  fill: transparent;
+  stroke: #979797;
+  stroke-width: 2;
+  transition-property: fill, stroke;
+  transition-duration: 300ms;
+}
