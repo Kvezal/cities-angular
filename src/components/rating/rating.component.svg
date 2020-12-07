@@ -1,0 +1,32 @@
+<svg
+  *ngFor="let star of stars; trackBy: trackByValue"
+  class="rating__star"
+  viewBox="0 0 13 12"
+  xmlns="http://www.w3.org/2000/svg"
+  [id]="star.value"
+>
+  <defs>
+    <clipPath id="clip-of-star">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M6.5 9.644L10.517 12 9.451 7.56 13 4.573l-4.674-.386L6.5 0 4.673 4.187 0 4.573 3.549 7.56 2.483 12 6.5 9.644z"
+        fill="transparent"
+      />
+    </clipPath>
+  </defs>
+  <rect
+    [attr.width]="starWidth"
+    class="rating__rect"
+  />
+  <rect
+    [attr.width]="starWidth"
+    class="rating__rect rating__rect--inactive"
+    clip-path="url(#clip-of-star)"
+  />
+  <rect
+    [attr.width]="star.filling"
+    class="rating__rect rating__rect--active"
+    clip-path="url(#clip-of-star)"
+  />
+</svg>

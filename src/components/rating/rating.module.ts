@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RatingComponent } from './rating.component';
 
-import { FavoriteFlagComponent } from './favorite-flag.component';
 
 
 @NgModule({
   declarations: [
-    FavoriteFlagComponent,
+    RatingComponent,
   ],
   imports: [
     CommonModule,
   ],
   exports: [
-    FavoriteFlagComponent,
-  ],
+    RatingComponent,
+  ]
 })
-export class FavoriteFlagModule { }
+export class RatingModule { }
