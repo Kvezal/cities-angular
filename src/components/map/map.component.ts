@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  HostBinding,
   Input,
   OnInit,
 } from '@angular/core';
@@ -15,14 +16,18 @@ import { MapService } from './map.service';
 
 @Component({
   selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
+  template: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent implements OnInit  {
+  @HostBinding(`id`) id = `map`;
+
+  @Input()
+  @HostBinding(`style.height`)
+  public height = `100%`;
+
+
   private _city: IMapCity;
-
-
   @Input()
   set city(value: IMapCity) {
     if (!value) {
