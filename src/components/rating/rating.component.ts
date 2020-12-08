@@ -2,14 +2,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
   EventEmitter,
   HostBinding,
   HostListener,
   Input,
   OnInit,
-  Output,
-  Renderer2
+  Output
 } from '@angular/core';
 
 import {
@@ -26,7 +24,6 @@ import {
 })
 export class RatingComponent implements OnInit {
   public stars: IRatingStar[];
-  public starWidth = 13;
 
 
   @Output()
@@ -62,15 +59,9 @@ export class RatingComponent implements OnInit {
   public isClickable = false;
 
 
-  private _size: ERatingSize = ERatingSize.NANO;
   @Input()
-  set size(value: ERatingSize) {
-    this._size = value;
-    this._initType();
-  }
-  get size(): ERatingSize {
-    return this._size;
-  }
+  @HostBinding(`attr.size`)
+  public size: ERatingSize = ERatingSize.NANO;
 
 
   @HostListener(`click`, [`$event`])
@@ -88,15 +79,12 @@ export class RatingComponent implements OnInit {
 
 
   constructor(
-    private readonly _changeDetectorRef: ChangeDetectorRef,
-    private readonly _elementRef: ElementRef,
-    private readonly _renderer: Renderer2
+    private readonly _changeDetectorRef: ChangeDetectorRef
   ) {}
 
 
   ngOnInit(): void {
     this._initStars();
-    this._initType();
   }
 
 
@@ -120,11 +108,6 @@ export class RatingComponent implements OnInit {
       filling = 0;
     }
     return `${filling * 100}%`;
-  }
-
-
-  private _initType(): void {
-    this._renderer.setAttribute(this._elementRef.nativeElement, `size`, this._size);
   }
 
 

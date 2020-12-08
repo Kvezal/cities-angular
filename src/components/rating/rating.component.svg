@@ -16,11 +16,9 @@
     </clipPath>
   </defs>
   <rect
-    [attr.width]="starWidth"
     class="rating__rect"
   />
   <rect
-    [attr.width]="starWidth"
     class="rating__rect rating__rect--inactive"
     clip-path="url(#clip-of-star)"
   />

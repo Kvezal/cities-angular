@@ -4,6 +4,7 @@ import {
 } from '@angular/core/testing';
 
 import { FavoriteFlagComponent } from './favorite-flag.component';
+import { EFavoriteFlagType } from './favorite-flag.interface';
 
 
 describe('FavoriteFlagComponent', () => {
@@ -62,5 +63,21 @@ describe('FavoriteFlagComponent', () => {
     spyOn(component, `clickFlagHandler`);
     fixture.nativeElement.click();
     expect(component.clickFlagHandler).toHaveBeenCalledTimes(1);
+  });
+
+  describe(`type`, () => {
+    it(`should have class by default`, () => {
+      const currentType = fixture.nativeElement.getAttribute(`type`);
+      expect(currentType).toEqual(EFavoriteFlagType.MIDDLE);
+    });
+
+    it(`should set class`, () => {
+      Object.values(EFavoriteFlagType).forEach((type: EFavoriteFlagType): void => {
+        component.type = type;
+        fixture.detectChanges();
+        const currentType = fixture.nativeElement.getAttribute(`type`);
+        expect(currentType).toEqual(type);
+      });
+    });
   });
 });

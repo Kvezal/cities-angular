@@ -3,11 +3,13 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostBinding,
   HostListener,
   Input,
   Output,
   Renderer2,
 } from '@angular/core';
+import { EFavoriteFlagType } from './favorite-flag.interface';
 
 
 @Component({
@@ -35,6 +37,11 @@ export class FavoriteFlagComponent {
   get isActive(): boolean {
     return this._isActive;
   }
+
+
+  @Input()
+  @HostBinding(`attr.type`)
+  public type: EFavoriteFlagType = EFavoriteFlagType.MIDDLE;
 
 
   @HostListener(`click`) clickFlagHandler(): void {
