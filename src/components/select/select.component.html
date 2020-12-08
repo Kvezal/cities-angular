@@ -19,7 +19,7 @@
   </svg>
   <ul class="select__list" [hidden]="isOpen">
     <li
-      *ngFor="let option of options"
+      *ngFor="let option of options; trackBy: trackByValue"
       class="select__option"
       tabindex="0"
       (click)="setSelectionValue(option.value)"
