@@ -91,6 +91,7 @@ describe('RatingComponent', () => {
     it(`should set size attribute`, () => {
       Object.values(ERatingSize).forEach((size: ERatingSize) => {
         component.size = size;
+        fixture.detectChanges();
         const sizeAttribute = fixture.nativeElement.getAttribute(`size`);
         expect(sizeAttribute).toEqual(size);
       });
