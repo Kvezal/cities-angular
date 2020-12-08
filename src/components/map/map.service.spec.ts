@@ -61,7 +61,7 @@ const mapMarkers: IMapMarker[] = [
   },
 ];
 
-describe('MapService', () => {
+describe(`MapService`, () => {
   let service: MapService;
   let leafletProviderService: LeafletProviderService;
   let map: LeafletMap;
@@ -81,7 +81,7 @@ describe('MapService', () => {
     leafletProviderService.map = () => map;
   });
 
-  it('should be created', () => {
+  it(`should be created`, () => {
     expect(service).toBeTruthy();
   });
 

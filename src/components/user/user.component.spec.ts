@@ -22,7 +22,7 @@ describe(`UserComponent`, () => {
     expect(component).toBeTruthy();
   });
 
-  describe(`"email" input`, () => {
+  describe(`email`, () => {
     it(`shouldn't exist email container if email is empty`, () => {
       const emailContainer = fixture.nativeElement.querySelector(`.user__email`);
       expect(emailContainer).toBeNull();
@@ -36,7 +36,7 @@ describe(`UserComponent`, () => {
     });
   });
 
-  describe(`"avatar" input`, () => {
+  describe(`avatar`, () => {
     it('avatar image should be placeholder by default', () => {
       const avatarContainer = fixture.nativeElement.querySelector(`.user__avatar-wrapper img`);
       expect(avatarContainer.src).toMatch(`assets/images/avatar.svg`);

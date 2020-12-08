@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LogoComponent } from './logo.component';
 
 
-describe('LogoComponent', () => {
+describe(`LogoComponent`, () => {
   let component: LogoComponent;
   let fixture: ComponentFixture<LogoComponent>;
 
@@ -20,11 +20,11 @@ describe('LogoComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it(`should create`, () => {
     expect(component).toBeTruthy();
   });
 
-  describe(`"isActive" input`, () => {
+  describe(`isActive`, () => {
     it(`should set "active" class if "true"`, () => {
       component.isActive = true;
       fixture.detectChanges();

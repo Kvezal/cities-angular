@@ -56,7 +56,7 @@ const mapMarkers: IMapMarker[] = [
 ];
 
 
-describe('MapComponent', () => {
+describe(`MapComponent`, () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
   let service: MapService;
@@ -79,7 +79,7 @@ describe('MapComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it(`should create`, () => {
     expect(component).toBeTruthy();
   });
 
