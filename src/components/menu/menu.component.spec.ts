@@ -45,7 +45,7 @@ const menuList = [
 ];
 
 
-describe('MenuComponent', () => {
+describe(`MenuComponent`, () => {
   let component: MenuComponent;
   let location: Location;
   let router: Router;
@@ -69,7 +69,7 @@ describe('MenuComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('should create', () => {
+  it(`should create`, () => {
     component.menuList = menuList;
     fixture.detectChanges();
     expect(component).toBeTruthy();

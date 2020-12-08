@@ -7,7 +7,7 @@ import { FavoriteFlagComponent } from './favorite-flag.component';
 import { EFavoriteFlagType } from './favorite-flag.interface';
 
 
-describe('FavoriteFlagComponent', () => {
+describe(`FavoriteFlagComponent`, () => {
   let component: FavoriteFlagComponent;
   let fixture: ComponentFixture<FavoriteFlagComponent>;
 
@@ -24,7 +24,7 @@ describe('FavoriteFlagComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it(`should create`, () => {
     expect(component).toBeTruthy();
   });
 
