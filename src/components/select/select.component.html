@@ -1,0 +1,32 @@
+<span class="select__label">{{label}}</span>
+<div
+  class="select__value"
+  tabindex="0"
+  (click)="toggleSelectionList()"
+>
+  <span>{{value}}</span>
+  <svg
+    class="select__arrow"
+    width="7"
+    height="4"
+    viewBox="0 0 7 4"
+    xmlns="http://www.w3.org/2000/svg">
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z"
+    />
+  </svg>
+  <ul class="select__list" [hidden]="isOpen">
+    <li
+      *ngFor="let option of options"
+      class="select__option"
+      tabindex="0"
+      (click)="setSelectionValue(option.value)"
+      [class.select__option--active]="option.value === value"
+    >
+      {{option.name}}
+    </li>
+  </ul>
+</div>
+
