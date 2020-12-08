@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from '../menu/menu.component.spec';
 
 
-fdescribe(`CityLinkComponent`, () => {
+describe(`CityLinkComponent`, () => {
   let component: CityLinkComponent;
   let fixture: ComponentFixture<CityLinkComponent>;
 
