@@ -4,9 +4,9 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output
 } from '@angular/core';
+
 import { ISelectOption } from './select.interface';
 
 
@@ -16,7 +16,7 @@ import { ISelectOption } from './select.interface';
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectComponent implements OnInit {
+export class SelectComponent {
   @Output()
   public changeSelectionValueOutput = new EventEmitter<string>();
 
@@ -70,14 +70,18 @@ export class SelectComponent implements OnInit {
 
   constructor(private readonly _changeDetectorRef: ChangeDetectorRef) { }
 
-  ngOnInit(): void {
-  }
 
   public setSelectionValue(value: string): void {
     this.value = value;
   }
 
+
   public toggleSelectionList(): void {
     this.isOpen = !this.isOpen;
+  }
+
+
+  public trackByValue(index: number, item: ISelectOption): string {
+    return item.value;
   }
 }

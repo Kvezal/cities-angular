@@ -84,20 +84,6 @@ describe(`MapComponent`, () => {
   });
 
   describe(`city`, () => {
-    describe(`map container`, () => {
-      it(`shouldn't have content if city is empty`, () => {
-        const mapContainer: HTMLDivElement = fixture.nativeElement.querySelector(`#map`);
-        component.city = null;
-        expect(mapContainer.children).toHaveSize(0);
-      });
-
-      it(`should have content if city isn't empty`, () => {
-        const mapContainer: HTMLDivElement = fixture.nativeElement.querySelector(`#map`);
-        component.city = mapCity;
-        expect(mapContainer.children).not.toHaveSize(0);
-      });
-    });
-
     describe(`removeOldMap method of MapService`, () => {
       it(`shouldn't call if city is empty`, () => {
         const removeOldMap = spyOn(service, `removeOldMap`);
