@@ -1,0 +1,35 @@
+<div *ngIf="isPremium" class="hotel-card__mark">
+  <span>Premium</span>
+</div>
+<div class="hotel-card__image-wrapper">
+  <a href="#">
+    <img
+      *ngIf="image"
+      class="hotel-card__image"
+      [src]="image"
+      alt="Place image"
+    >
+  </a>
+</div>
+<div class="hotel-card__info">
+  <div class="hotel-card__price-wrapper">
+    <div class="hotel-card__price">
+      <b class="hotel-card__price-value">€{{price}}</b>
+      <span class="hotel-card__price-text">/&nbsp;night</span>
+    </div>
+    <app-favorite-flag
+      class="hotel-card__favorite"
+      [type]="favoriteFlagType"
+      [isActive]="isFavorite"
+      (changeIsActiveOutput)="changeIsFavoriteValue.emit($event)"
+    ></app-favorite-flag>
+  </div>
+  <app-rating
+    class="hotel-card__rating"
+    [value]="rating"
+  ></app-rating>
+  <h2 class="hotel-card__name">
+    <a href="#">{{title}}</a>
+  </h2>
+  <p class="hotel-card__type">{{hotelType}}</p>
+</div>

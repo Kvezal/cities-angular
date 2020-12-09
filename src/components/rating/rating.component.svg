@@ -19,6 +19,7 @@
     class="rating__rect"
   />
   <rect
+    width="100%"
     class="rating__rect rating__rect--inactive"
     clip-path="url(#clip-of-star)"
   />
