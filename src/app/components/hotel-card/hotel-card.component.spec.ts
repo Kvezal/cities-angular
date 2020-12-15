@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EFavoriteFlagType, FavoriteFlagModule } from '../favorite-flag';
-import { RatingModule } from '../rating';
+import { EFavoriteFlagType, FavoriteFlagModule } from '@components/favorite-flag';
+import { RatingModule } from '@components/rating';
+
 import { HotelCardComponent } from './hotel-card.component';
 import { EHotelCardType } from './hotel-card.interface';
 
