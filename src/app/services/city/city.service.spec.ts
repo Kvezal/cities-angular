@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+
+import { ApiModule, CityApiService } from '@api';
+import { ICity } from '@interfaces';
 
 import { CityService } from './city.service';
-import { ApiModule } from '../../api/api.module';
-import { CityApiService } from '@api';
-import { of } from 'rxjs';
-import { ICity } from '@interfaces';
 
 
 const city: ICity = {

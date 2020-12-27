@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-
-import { CityApiService } from '@api';
-
-
 import {
   Observable,
   ReplaySubject
 } from 'rxjs';
+
+import { CityApiService } from '@api';
 import { ICity } from '@interfaces';
 
 
