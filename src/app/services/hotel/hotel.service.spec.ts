@@ -115,6 +115,26 @@ describe('HotelService', () => {
         sorting: ESortingType.POPULAR,
       });
     });
+
+    it(`should emit popular sorting by default`, () => {
+      let sorting: ESortingType = ESortingType.NEARBY;
+      service.sorting$.subscribe((newSorting: ESortingType) => {
+        sorting = newSorting;
+      });
+      expect(sorting).toEqual(ESortingType.POPULAR);
+    });
+
+    it(`should emit sorting`, () => {
+      let sorting: ESortingType = ESortingType.POPULAR;
+      service.sorting$.subscribe((newSorting: ESortingType) => {
+        sorting = newSorting;
+      });
+      [ESortingType.RATING, ESortingType.POPULAR, ESortingType.HIGH_PRICE, ESortingType.LOW_PRICE]
+        .forEach((emittedSorting: ESortingType) => {
+          service.updateList(cityId, emittedSorting);
+          expect(sorting).toEqual(emittedSorting);
+        });
+    });
   });
 
   describe(`loadHotel`, () => {

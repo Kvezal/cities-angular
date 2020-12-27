@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+  BehaviorSubject,
   Observable,
   ReplaySubject
 } from 'rxjs';
@@ -19,8 +20,12 @@ const NEARBY_HOTEL_COUNT = 3;
 })
 export class HotelService {
   private _hotelMap: Map<string, Map<ESortingType, IHotel[]>> = new Map([]);
+
   private _hotelListReplaySubject: ReplaySubject<IHotel[]> = new ReplaySubject(1);
-  public hotelList$: Observable<IHotel[]> = this._hotelListReplaySubject.asObservable() as Observable<IHotel[]>;
+  public hotelList$: Observable<IHotel[]> = this._hotelListReplaySubject.asObservable();
+
+  private _sortingBehaviorSubject: BehaviorSubject<ESortingType> = new BehaviorSubject(ESortingType.POPULAR);
+  public sorting$: Observable<ESortingType> = this._sortingBehaviorSubject.asObservable();
 
 
   constructor(private readonly _hotelApiService: HotelApiService) { }
@@ -33,6 +38,7 @@ export class HotelService {
     } else {
       this._loadHotelList(cityId, sorting);
     }
+    this._sortingBehaviorSubject.next(sorting);
   }
 
 
