@@ -2,12 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import {
+  ApiModule,
   ESortingType,
   HotelApiService
 } from '@api';
 import { IHotel } from '@interfaces';
 
-import { ApiModule } from '../../api/api.module';
 import { HotelService } from './hotel.service';
 
 
