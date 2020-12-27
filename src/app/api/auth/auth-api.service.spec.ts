@@ -85,7 +85,7 @@ describe(`AuthApiService`, () => {
   describe(`decode`, () => {
     beforeEach(() => {
       spyOn(apiService, `get`).and.returnValue(of(userInfo));
-      service.getAuthUserInfo();
+      service.loadAuthUserInfo();
     });
 
     it(`should call get method of ApiService`, () => {

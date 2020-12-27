@@ -17,12 +17,12 @@ export class HotelApiService implements IApiEntity {
   constructor(private readonly _apiService: ApiService) { }
 
 
-  public getItemById(hotelId: string): Observable<IHotel> {
+  public loadItemById(hotelId: string): Observable<IHotel> {
     return this._apiService.get(`${this.basePath}/${hotelId}`);
   }
 
 
-  public getList(queries?: Partial<IHotelQueries>): Observable<IHotel[]> {
+  public loadList(queries: Partial<IHotelQueries> = {}): Observable<IHotel[]> {
     return this._apiService.get(this.basePath, {
       queries,
     });

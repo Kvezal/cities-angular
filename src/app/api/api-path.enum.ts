@@ -3,4 +3,5 @@ export enum ApiPath {
   FAVORITE = `favorite`,
   AUTH = `auth`,
   COMMENT = `comment`,
+  CITY = `city`,
 }

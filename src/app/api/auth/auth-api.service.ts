@@ -29,7 +29,7 @@ export class AuthApiService implements IApiEntity {
   }
 
 
-  public getAuthUserInfo(): Observable<IUserResponse> {
+  public loadAuthUserInfo(): Observable<IUserResponse> {
     return this._apiService.get(`${this.basePath}/decode`);
   }
 }

@@ -30,7 +30,7 @@ const comment: IComment = {
   },
 };
 
-fdescribe('CommentApiService', () => {
+describe('CommentApiService', () => {
   let service: CommentApiService;
   let apiService: ApiService;
   const basePath = ApiPath.COMMENT;
@@ -56,10 +56,10 @@ fdescribe('CommentApiService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe(`getList`, () => {
+  describe(`loadList`, () => {
     beforeEach(() => {
       spyOn(apiService, `get`).and.returnValue(of([comment]));
-      service.getList(hotelId);
+      service.loadList(hotelId);
     });
 
     it(`should call get method of ApiService`, () => {

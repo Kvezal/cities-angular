@@ -81,10 +81,10 @@ describe(`HotelApiService`, () => {
     expect(service).toBeTruthy();
   });
 
-  describe(`getItemById`, () => {
+  describe(`loadItemById`, () => {
     beforeEach(() => {
       spyOn(apiService, `get`);
-      service.getItemById(hotelId);
+      service.loadItemById(hotelId);
     });
 
     it(`should call get method of ApiService`, () => {
@@ -96,23 +96,23 @@ describe(`HotelApiService`, () => {
     });
   });
 
-  describe(`getList`, () => {
+  describe(`loadList`, () => {
     beforeEach(() => {
       spyOn(apiService, `get`);
     });
 
     it(`should call get method of ApiService`, () => {
-      service.getList();
+      service.loadList();
       expect(apiService.get).toHaveBeenCalledTimes(1);
     });
 
     it(`should call get method with path`, () => {
-      service.getList();
-      expect(apiService.get).toHaveBeenCalledWith(basePath, undefined);
+      service.loadList();
+      expect(apiService.get).toHaveBeenCalledWith(basePath, {queries: {}});
     });
 
     it(`should call get method with path and options`, () => {
-      service.getList(hotelQueryParams);
+      service.loadList(hotelQueryParams);
       expect(apiService.get).toHaveBeenCalledWith(basePath, {
         queries: hotelQueryParams,
       });

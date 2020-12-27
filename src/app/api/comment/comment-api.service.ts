@@ -17,7 +17,7 @@ export class CommentApiService implements IApiEntity {
   }
 
 
-  public getList(hotelId: string): Observable<IComment[]> {
+  public loadList(hotelId: string): Observable<IComment[]> {
     return this._apiService.get(this.basePath, {
       queries: {hotelId},
     });

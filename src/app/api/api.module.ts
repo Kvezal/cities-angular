@@ -6,6 +6,7 @@ import { AuthApiService } from './auth';
 import { CommentApiService } from './comment';
 import { FavoriteApiService } from './favorite';
 import { HotelApiService } from './hotel';
+import { CityApiService } from './city/city-api.service';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { HotelApiService } from './hotel';
   providers: [
     ApiService,
     AuthApiService,
+    CityApiService,
     CommentApiService,
     FavoriteApiService,
     HotelApiService,
