@@ -8,7 +8,8 @@ import {
   Output
 } from '@angular/core';
 
-import { EFavoriteFlagType } from '../favorite-flag';
+import { EFavoriteFlagType } from '@components/favorite-flag';
+
 import { hotelCardTypeToFavoriteFlagTypeMap } from './hotel-card.map';
 import { EHotelCardType } from './hotel-card.interface';
 

@@ -15,6 +15,11 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@api": ["src/app/api"],
+      "@components/*": ["src/app/components/*"],
+      "@interfaces": ["src/app/interfaces"]
+    }
   }
 }
