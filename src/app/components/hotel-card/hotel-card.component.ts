@@ -23,89 +23,13 @@ import { EHotelCardType } from './hotel-card.interface';
 export class HotelCardComponent {
   @Output() changeIsFavoriteValue = new EventEmitter<boolean>();
 
-
-  private _title = ``;
-  @Input()
-  public set title(value: string) {
-    this._title = value;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  public get title(): string {
-    return this._title;
-  }
-
-
-  private _price = 0;
-  @Input()
-  public set price(value: number) {
-    this._price = value;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  public get price(): number {
-    return this._price;
-  }
-
-
-  private _rating = 0;
-  @Input()
-  public set rating(value: number) {
-    this._rating = value;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  public get rating(): number {
-    return this._rating;
-  }
-
-
-  private _isPremium = false;
-  @Input()
-  public set isPremium(value: boolean) {
-    this._isPremium = value;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  public get isPremium(): boolean {
-    return this._isPremium;
-  }
-
-
-  private _hotelType = ``;
-  @Input()
-  public set hotelType(value: string) {
-    this._hotelType = value;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  public get hotelType(): string {
-    return this._hotelType;
-  }
-
-
-  private _image: string;
-  @Input()
-  public set image(value: string) {
-    this._image = value;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  public get image(): string {
-    return this._image;
-  }
-
-
-  private _isFavorite = false;
-  @Input()
-  public set isFavorite(value: boolean) {
-    this._isFavorite = value;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  public get isFavorite(): boolean {
-    return this._isFavorite;
-  }
+  @Input() title = ``;
+  @Input() price = 0;
+  @Input() rating = 0;
+  @Input() isPremium = false;
+  @Input() hotelType = ``;
+  @Input() image = ``;
+  @Input() isFavorite = false;
 
 
   private _cardType: EHotelCardType = EHotelCardType.MIDDLE;
@@ -113,7 +37,7 @@ export class HotelCardComponent {
   @HostBinding(`attr.cardType`)
   public set cardType(value: EHotelCardType) {
     this._cardType = value;
-    this._changeFavoriteFlagType();
+    this.favoriteFlagType = hotelCardTypeToFavoriteFlagTypeMap.get(this._cardType);
     this._changeDetectorRef.markForCheck();
   }
 
@@ -128,9 +52,4 @@ export class HotelCardComponent {
   constructor(
     private readonly _changeDetectorRef: ChangeDetectorRef
   ) {}
-
-
-  private _changeFavoriteFlagType(): void {
-    this.favoriteFlagType = hotelCardTypeToFavoriteFlagTypeMap.get(this._cardType);
-  }
 }

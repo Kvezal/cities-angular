@@ -10,14 +10,7 @@ import {IMenuItem} from './menu.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent {
-  private _menuList: IMenuItem[];
-  @Input()
-  set menuList(list: IMenuItem[]) {
-    this._menuList = list;
-  }
-  get menuList(): IMenuItem[] {
-    return this._menuList;
-  }
+  @Input() menuList: IMenuItem[];
 
   public trackById(index, item): string {
     return item.id;

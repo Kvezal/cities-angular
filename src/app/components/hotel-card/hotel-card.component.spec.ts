@@ -1,4 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick
+} from '@angular/core/testing';
 
 import { EFavoriteFlagType, FavoriteFlagModule } from '@components/favorite-flag';
 import { RatingModule } from '@components/rating';
@@ -25,7 +30,6 @@ describe(`HotelCardComponent`, () => {
 
     fixture = TestBed.createComponent(HotelCardComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it(`should create`, () => {
@@ -43,6 +47,7 @@ describe(`HotelCardComponent`, () => {
 
   describe(`title`, () => {
     it(`should be empty by default`, () => {
+      fixture.detectChanges();
       const title = fixture.nativeElement.querySelector(`.hotel-card__name`);
       expect(title.textContent.trim()).toBe(``);
     });
@@ -57,6 +62,7 @@ describe(`HotelCardComponent`, () => {
 
   describe(`price`, () => {
     it(`should have "€0" by default`, () => {
+      fixture.detectChanges();
       const price = fixture.nativeElement.querySelector(`.hotel-card__price-value`);
       expect(price.textContent.trim()).toBe(`€0`);
     });
@@ -71,6 +77,7 @@ describe(`HotelCardComponent`, () => {
 
   describe(`rating`, () => {
     it(`should have 0 by default`, () => {
+      fixture.detectChanges();
       const rating = fixture.nativeElement.querySelector(`.hotel-card__rating`);
       expect(+rating.getAttribute(`ng-reflect-value`)).toBe(0);
     });
@@ -85,6 +92,7 @@ describe(`HotelCardComponent`, () => {
 
   describe(`isPremium`, () => {
     it(`shouldn't have isPremium flag by default`, () => {
+      fixture.detectChanges();
       const premium = fixture.nativeElement.querySelector(`.hotel-card__mark`);
       expect(premium).toBeNull();
     });
@@ -99,6 +107,7 @@ describe(`HotelCardComponent`, () => {
 
   describe(`hotelType`, () => {
     it(`should be empty by default`, () => {
+      fixture.detectChanges();
       const hotelType = fixture.nativeElement.querySelector(`.hotel-card__type`);
       expect(hotelType.textContent.trim()).toBe(``);
     });
@@ -113,6 +122,7 @@ describe(`HotelCardComponent`, () => {
 
   describe(`image`, () => {
     it(`shouldn't have image by default`, () => {
+      fixture.detectChanges();
       const image = fixture.nativeElement.querySelector(`.hotel-card__image`);
       expect(image).toBeNull();
     });
@@ -127,6 +137,7 @@ describe(`HotelCardComponent`, () => {
 
   describe(`isFavorite`, () => {
     it(`should set "false" by default`, () => {
+      fixture.detectChanges();
       const favorite = fixture.nativeElement.querySelector(`.hotel-card__favorite`);
       expect(favorite.getAttribute(`ng-reflect-is-active`)).toBe(`false`);
     });
@@ -138,24 +149,25 @@ describe(`HotelCardComponent`, () => {
       expect(favorite.getAttribute(`ng-reflect-is-active`)).toBe(`true`);
     });
 
-    it(`should emit isFavorite value`, () => {
+    it(`should emit isFavorite value`, fakeAsync(() => {
       let result;
       component.changeIsFavoriteValue.subscribe((value) => {
         result = value;
       });
       const favorite = fixture.nativeElement.querySelector(`.hotel-card__favorite`);
-      component.isFavorite = true;
-      fixture.detectChanges();
+      favorite.click();
+      tick();
       expect(result).toBe(true);
 
-      component.isFavorite = false;
-      fixture.detectChanges();
+      favorite.click();
+      tick();
       expect(result).toBe(false);
-    });
+    }));
   });
 
   describe(`cardType`, () => {
     it(`should have middle by default`, () => {
+      fixture.detectChanges();
       expect(fixture.nativeElement.getAttribute(`cardType`)).toBe(EHotelCardType.MIDDLE);
     });
 
@@ -169,9 +181,11 @@ describe(`HotelCardComponent`, () => {
 
     it(`should change favoriteFlagType`, () => {
       component.cardType = EHotelCardType.SMALL;
+      fixture.detectChanges();
       expect(component.favoriteFlagType).toBe(EFavoriteFlagType.MIDDLE);
 
       component.cardType = EHotelCardType.MIDDLE;
+      fixture.detectChanges();
       expect(component.favoriteFlagType).toBe(EFavoriteFlagType.SMALL_SKEW);
     });
 

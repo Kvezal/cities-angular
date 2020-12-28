@@ -25,6 +25,7 @@ export class FavoriteFlagComponent {
 
   private _isActive = false;
   @Input()
+  @HostBinding(`class.active`)
   set isActive(value: boolean) {
     this._isActive = value;
     if (value) {
