@@ -1,8 +1,0 @@
-<div class="user__avatar-wrapper">
-  <img [src]="avatar" alt="user avatar">
-</div>
-
-<span *ngIf="email; else signIn" class="user__email">{{email}}</span>
-<ng-template #signIn>
-  <span class="user__login">Sing in</span>
-</ng-template>

@@ -1,8 +1,0 @@
-:host {
-  opacity: 1;
-
-  &:not(.active):focus,
-  &:not(.active):hover {
-    opacity: .5
-  }
-}
