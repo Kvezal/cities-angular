@@ -13,25 +13,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CityLinkComponent {
-  private _path = ``;
-  @Input()
-  public set path(value: string) {
-    this._path = value || ``;
-    this._changeDetectorRef.detectChanges();
-  }
-  public get path(): string {
-    return this._path;
-  }
-
-  private _label = ``;
-  @Input()
-  public set label(value: string) {
-    this._label = value || ``;
-    this._changeDetectorRef.detectChanges();
-  }
-  public get label(): string {
-    return this._label;
-  }
+  @Input() label = ``;
+  @Input() path = ``;
 
 
   constructor(

@@ -31,3 +31,52 @@
   src: url(/assets/fonts/rubik-bold.woff2) format("woff2"), url(/assets/fonts/rubik-bold.woff) format("woff"), url(/assets/fonts/rubik-bold.ttf) format("truetype");
   font-display: swap
 }
+
+body, html {
+  width: 100%;
+  min-width: 1144px;
+  margin: 0;
+  padding: 0;
+  font-family: rubik, arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.15;
+  color: #383838;
+  background-color: #f5f5f5;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+*, ::after, ::before {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-transition: color .3s, opacity .3s;
+  transition: color .3s, opacity .3s;
+  cursor: pointer;
+  outline: 0
+}
+
+textarea {
+  resize: none
+}
+
+img {
+  max-width: 100%;
+  height: auto
+}
+
+.container {
+  width: 1144px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 58px;
+  padding-right: 58px
+}

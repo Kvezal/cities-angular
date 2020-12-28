@@ -8,7 +8,7 @@ import { ApiModule } from './api/api.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
