@@ -30,7 +30,7 @@ const cityList: ICity[] = [
   },
 ];
 
-describe('CityService', () => {
+describe(`CityService`, () => {
   let service: CityService;
 
   beforeEach(() => {
@@ -48,7 +48,7 @@ describe('CityService', () => {
     service = TestBed.inject(CityService);
   });
 
-  it('should be created', () => {
+  it(`should be created`, () => {
     expect(service).toBeTruthy();
   });
 

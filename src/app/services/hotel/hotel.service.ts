@@ -32,7 +32,7 @@ export interface IHotelUpdateParams {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: `root`
 })
 export class HotelService {
   private _hotelMap: Map<string, Map<ESortingType, IList<IHotel>>> = new Map([]);

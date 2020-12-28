@@ -94,7 +94,7 @@ const favorite: IFavoriteResponse = {
   value: true,
 };
 
-describe('HotelService', () => {
+describe(`HotelService`, () => {
   let service: HotelService;
   let hotelApiService: HotelApiService;
   let favoriteApiService: FavoriteApiService;
@@ -131,7 +131,7 @@ describe('HotelService', () => {
     cityService = TestBed.inject(CityService);
   });
 
-  it('should be created', () => {
+  it(`should be created`, () => {
     expect(service).toBeTruthy();
   });
 

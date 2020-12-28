@@ -17,7 +17,7 @@ import { IComment } from '@interfaces';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: `root`
 })
 export class CommentService {
   private _commentListBehaviorSubject: BehaviorSubject<IComment[]> = new BehaviorSubject([]);

@@ -30,7 +30,7 @@ const comment: IComment = {
   },
 };
 
-describe('CommentApiService', () => {
+describe(`CommentApiService`, () => {
   let service: CommentApiService;
   let apiService: ApiService;
   const basePath = ApiPath.COMMENT;
@@ -52,7 +52,7 @@ describe('CommentApiService', () => {
     apiService = TestBed.inject(ApiService);
   });
 
-  it('should be created', () => {
+  it(`should be created`, () => {
     expect(service).toBeTruthy();
   });
 

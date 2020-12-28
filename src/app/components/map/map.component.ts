@@ -15,8 +15,8 @@ import { MapService } from './map.service';
 
 
 @Component({
-  selector: 'app-map',
-  template: '',
+  selector: `app-map`,
+  template: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent implements OnInit  {

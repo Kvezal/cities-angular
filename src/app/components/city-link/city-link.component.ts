@@ -7,9 +7,9 @@ import {
 
 
 @Component({
-  selector: 'app-city-link',
-  templateUrl: './city-link.component.html',
-  styleUrls: ['./city-link.component.scss'],
+  selector: `app-city-link`,
+  templateUrl: `./city-link.component.html`,
+  styleUrls: [`./city-link.component.scss`],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CityLinkComponent {

@@ -13,9 +13,9 @@ import { EFavoriteFlagType } from './favorite-flag.interface';
 
 
 @Component({
-  selector: 'app-favorite-flag',
-  templateUrl: './favorite-flag.component.html',
-  styleUrls: ['./favorite-flag.component.scss'],
+  selector: `app-favorite-flag`,
+  templateUrl: `./favorite-flag.component.html`,
+  styleUrls: [`./favorite-flag.component.scss`],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoriteFlagComponent {

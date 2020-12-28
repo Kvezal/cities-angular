@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { CityApiService } from './city-api.service';
+import { ICity } from '@interfaces';
+
 import { ApiModule } from '../api.module';
 import { ApiService } from '../api.service';
-import { ICity } from '@interfaces';
 import { ApiPath } from '../api-path.enum';
+import { CityApiService } from './city-api.service';
 
 
 const city: ICity = {
@@ -19,7 +20,7 @@ const city: ICity = {
   },
 };
 
-describe('CityApiService', () => {
+describe(`CityApiService`, () => {
   let service: CityApiService;
   let apiService: ApiService;
   const basePath = ApiPath.CITY;
@@ -40,7 +41,7 @@ describe('CityApiService', () => {
     apiService = TestBed.inject(ApiService);
   });
 
-  it('should be created', () => {
+  it(`should be created`, () => {
     expect(service).toBeTruthy();
   });
 

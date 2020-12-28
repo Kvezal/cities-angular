@@ -15,9 +15,9 @@ import { EHotelCardType } from './hotel-card.interface';
 
 
 @Component({
-  selector: 'app-hotel-card',
-  templateUrl: './hotel-card.component.html',
-  styleUrls: ['./hotel-card.component.scss'],
+  selector: `app-hotel-card`,
+  templateUrl: `./hotel-card.component.html`,
+  styleUrls: [`./hotel-card.component.scss`],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HotelCardComponent {

@@ -17,9 +17,9 @@ import {
 
 
 @Component({
-  selector: 'app-rating',
-  templateUrl: './rating.component.svg',
-  styleUrls: ['./rating.component.scss'],
+  selector: `app-rating`,
+  templateUrl: `./rating.component.svg`,
+  styleUrls: [`./rating.component.scss`],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RatingComponent implements OnInit {

@@ -13,7 +13,7 @@ import {
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: `root`
 })
 export class CityService {
   private readonly _cityReplaySubject: ReplaySubject<ICity> = new ReplaySubject(1);

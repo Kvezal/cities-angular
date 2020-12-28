@@ -13,7 +13,7 @@ import {
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: `root`
 })
 export class AuthService {
   private readonly _userReplaySubject: ReplaySubject<IUserResponse> = new ReplaySubject(1);
