@@ -1,0 +1,25 @@
+<header class="header">
+  <div class="container">
+    <div class="header__wrapper">
+      <div class="header__left">
+        <a class="header__logo-link" routerLink="/" routerLinkActive="header__logo-link--active">
+          <img class="header__logo" src="assets/images/logo.svg" alt="6 cities logo" width="81" height="41">
+        </a>
+      </div>
+      <nav class="header__nav">
+        <ul class="header__nav-list">
+          <li class="header__nav-item user">
+
+            <a class="header__nav-link header__nav-link--profile" [routerLink]="email ? '/favorite' : '/login'">
+              <div class="header__avatar-wrapper user__avatar-wrapper">
+                <img class="header__avatar" [src]="image || 'assets/images/avatar.svg'" alt="avatar">
+              </div>
+              <span class="header__user">{{email || 'Sign in'}}</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
