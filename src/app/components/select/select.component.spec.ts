@@ -22,7 +22,7 @@ const options: ISelectOption[] = [
   },
 ];
 
-describe(`SelectComponent`, () => {
+fdescribe(`SelectComponent`, () => {
   let component: SelectComponent;
   let fixture: ComponentFixture<SelectComponent>;
 
@@ -36,7 +36,6 @@ describe(`SelectComponent`, () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SelectComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it(`should create`, () => {
@@ -87,16 +86,17 @@ describe(`SelectComponent`, () => {
   describe(`value`, () => {
     beforeEach(() => {
       component.options = options;
-      fixture.detectChanges();
     });
 
-    it(`should set first option element by default`, () => {
+    fit(`should set first option element by default`, () => {
+      fixture.detectChanges();
       expect(component.value).toEqual(options[0].value);
     });
 
     it(`should display current value`, () => {
       const lastOption: ISelectOption = options[options.length - 1];
       component.value = lastOption.value;
+      fixture.detectChanges();
       const value: HTMLSpanElement = fixture.nativeElement.querySelector(`.select__value span`);
       expect(value.textContent.trim()).toBe(lastOption.value);
     });
@@ -104,6 +104,7 @@ describe(`SelectComponent`, () => {
     it(`should set active option`, () => {
       const lastOption = options[options.length - 1];
       component.value = lastOption.value;
+      fixture.detectChanges();
       const activeOption: HTMLLIElement = fixture.nativeElement.querySelector(`.select__option--active`);
       expect(activeOption.textContent.trim()).toBe(lastOption.name);
     });
@@ -112,6 +113,7 @@ describe(`SelectComponent`, () => {
       const optionList: HTMLLIElement[] = fixture.nativeElement.querySelectorAll(`.select__option`);
       optionList.forEach((option: HTMLLIElement, index: number) => {
         option.click();
+        fixture.detectChanges();
         expect(component.value).toBe(options[index].value);
       });
     });
@@ -124,6 +126,7 @@ describe(`SelectComponent`, () => {
       });
       optionList.forEach((option: HTMLLIElement, index: number) => {
         option.click();
+        fixture.detectChanges();
         expect(result).toBe(options[index].value);
       });
     });
@@ -133,6 +136,7 @@ describe(`SelectComponent`, () => {
       const valueContainer: HTMLSpanElement = fixture.nativeElement.querySelector(`.select__value span`);
       optionList.forEach((option: HTMLLIElement, index: number) => {
         option.click();
+        fixture.detectChanges();
         expect(valueContainer.textContent.trim()).toBe(options[index].value);
       });
     });
@@ -162,6 +166,7 @@ describe(`SelectComponent`, () => {
       const listContainer: HTMLUListElement = fixture.nativeElement.querySelector(`.select__list`);
       const valueContainer: HTMLDivElement = fixture.nativeElement.querySelector(`.select__value`);
       valueContainer.click();
+      fixture.detectChanges();
       expect(listContainer.hidden).toBeTruthy();
     });
   });

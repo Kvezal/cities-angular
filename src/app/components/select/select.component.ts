@@ -24,7 +24,7 @@ export class SelectComponent {
   private _isOpen = false;
   public set isOpen(value: boolean) {
     this._isOpen = value;
-    this._changeDetectorRef.detectChanges();
+    this._changeDetectorRef.markForCheck();
   }
   public get isOpen(): boolean {
     return this._isOpen;
@@ -36,7 +36,7 @@ export class SelectComponent {
   public set value(value: string) {
     this._value = value;
     this.changeSelectionValueOutput.emit(value);
-    this._changeDetectorRef.detectChanges();
+    this._changeDetectorRef.markForCheck();
   }
   public get value(): string {
     return this._value;
@@ -44,14 +44,7 @@ export class SelectComponent {
 
 
   private _label: string;
-  @Input()
-  public set label(value: string) {
-    this._label = value;
-    this._changeDetectorRef.markForCheck();
-  }
-  public get label(): string {
-    return this._label;
-  }
+  @Input() label = ``;
 
 
   private _options: ISelectOption[] = [];

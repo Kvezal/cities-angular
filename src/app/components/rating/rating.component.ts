@@ -35,7 +35,7 @@ export class RatingComponent implements OnInit {
   public set value(value: number) {
     this._value = value <= 0 ? 0 : value;
     this._initStars();
-    this._changeDetectorRef.detectChanges();
+    this._changeDetectorRef.markForCheck();
   }
   public get value(): number {
     return this._value;
@@ -47,7 +47,7 @@ export class RatingComponent implements OnInit {
   public set maxValue(value) {
     this._maxValue = value;
     this._initStars();
-    this._changeDetectorRef.detectChanges();
+    this._changeDetectorRef.markForCheck();
   }
   public get maxValue(): number {
     return this._maxValue;

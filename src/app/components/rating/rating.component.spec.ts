@@ -18,7 +18,6 @@ describe(`RatingComponent`, () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RatingComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it(`should create`, () => {
@@ -28,6 +27,7 @@ describe(`RatingComponent`, () => {
 
   describe(`maxValue`, () => {
     it(`should have "5" stars by default`, () => {
+      fixture.detectChanges();
       const stars = fixture.nativeElement.querySelectorAll(`.rating__star`);
       expect(stars).toHaveSize(5);
     });
@@ -35,6 +35,7 @@ describe(`RatingComponent`, () => {
     it(`should set star count`, () => {
       const count = 10;
       component.maxValue = count;
+      fixture.detectChanges();
       const stars = fixture.nativeElement.querySelectorAll(`.rating__star`);
       expect(stars).toHaveSize(count);
     });
@@ -43,18 +44,21 @@ describe(`RatingComponent`, () => {
 
   describe(`value`, () => {
     it(`shouldn't set star filling by default`, () => {
+      fixture.detectChanges();
       const activeRect = fixture.nativeElement.querySelector(`.rating__rect--active`);
       expect(activeRect.width.baseVal.valueAsString).toEqual(`0%`);
     });
 
     it(`should set half star filling`, () => {
       component.value = 0.5;
+      fixture.detectChanges();
       const activeRect = fixture.nativeElement.querySelector(`.rating__rect--active`);
       expect(activeRect.width.baseVal.valueAsString).toEqual(`50%`);
     });
 
     it(`should fill several stars`, () => {
       component.value = 3.5;
+      fixture.detectChanges();
       const activeRects = fixture.nativeElement.querySelectorAll(`.rating__rect--active`);
       expect(activeRects[0].width.baseVal.valueAsString).toEqual(`100%`);
       expect(activeRects[1].width.baseVal.valueAsString).toEqual(`100%`);
@@ -84,6 +88,7 @@ describe(`RatingComponent`, () => {
 
   describe(`size`, () => {
     it(`should set size attribute by default`, () => {
+      fixture.detectChanges();
       const sizeAttribute = fixture.nativeElement.getAttribute(`size`);
       expect(sizeAttribute).toEqual(ERatingSize.NANO);
     });
