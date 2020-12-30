@@ -2,7 +2,7 @@
   <span>Premium</span>
 </div>
 <div class="hotel-card__image-wrapper">
-  <a href="#">
+  <a [routerLink]="['/offer', id]">
     <img
       *ngIf="image"
       class="hotel-card__image"
@@ -29,7 +29,7 @@
     [value]="rating"
   ></app-rating>
   <h2 class="hotel-card__name">
-    <a href="#">{{title}}</a>
+    <a [routerLink]="['/offer', id]">{{title}}</a>
   </h2>
   <p class="hotel-card__type">{{hotelType}}</p>
 </div>

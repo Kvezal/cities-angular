@@ -2,7 +2,32 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CityLinkComponent } from './city-link.component';
-import { routes } from '../menu/menu.component.spec';
+import { Component } from '@angular/core';
+import { Routes } from '@angular/router';
+
+@Component({
+  template: `Search`
+})
+export class SearchComponent {
+}
+
+@Component({
+  template: `Home`
+})
+export class HomeComponent {
+}
+
+@Component({
+  template: `<router-outlet></router-outlet>`
+})
+export class AppComponent {
+}
+
+export const routes: Routes = [
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent},
+  {path: 'search', component: SearchComponent}
+];
 
 
 describe(`CityLinkComponent`, () => {
@@ -33,7 +58,6 @@ describe(`CityLinkComponent`, () => {
   describe(`path`, () => {
     it(`should set path by default`, () => {
       const link = fixture.nativeElement.querySelector(`.city-link`);
-      console.log(link.href);
       expect(link.href).toMatch('');
     });
 

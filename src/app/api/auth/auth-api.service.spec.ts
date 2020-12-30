@@ -20,7 +20,7 @@ const userInfo: IUserResponse = {
   id: `023dda52-f07b-47ef-a44c-2301f8743149`,
   name: `kvezal`,
   email: `kvezal@gmail.com`,
-  image: `path/to/image.jpg`,
+  image: `assets/images/test/1.jpg`,
 };
 
 describe(`AuthApiService`, () => {

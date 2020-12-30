@@ -332,6 +332,7 @@ describe(`MapService`, () => {
   describe(`setActiveMarker`, () => {
     const mapMarker: IMapMarker = mapMarkers[0];
     const activeMarkerId = mapMarker.id;
+    const marker = new Marker(mapMarker.coords);
 
     describe(`unsetActiveMarker`, () => {
       beforeEach(() => {
@@ -364,8 +365,6 @@ describe(`MapService`, () => {
     });
 
     describe(`setIcon method of Marker`, () => {
-      const marker = new Marker(mapMarker.coords);
-
       beforeEach(() => {
         service.markerMap.get = () => marker;
         spyOn(marker, `setIcon`).and.callThrough();
@@ -378,6 +377,22 @@ describe(`MapService`, () => {
 
       it(`should call with params`, () => {
         expect(marker.setIcon).toHaveBeenCalledWith(service.activeIcon);
+      });
+    });
+
+    describe(`setZIndexOffset method of Marker`, () => {
+      beforeEach(() => {
+        service.markerMap.get = () => marker;
+        spyOn(marker, `setZIndexOffset`).and.callThrough();
+        service.setActiveMarker(activeMarkerId);
+      });
+
+      it(`should call`, () => {
+        expect(marker.setZIndexOffset).toHaveBeenCalledTimes(1);
+      });
+
+      it(`should call with param`, () => {
+        expect(marker.setZIndexOffset).toHaveBeenCalledWith(1000);
       });
     });
   });
@@ -437,6 +452,29 @@ describe(`MapService`, () => {
 
       it(`should call with params`, () => {
         expect(marker.setIcon).toHaveBeenCalledWith(service.icon);
+      });
+    });
+
+    describe(`setZIndexOffset method of Marker`, () => {
+      const mapMarker: IMapMarker = mapMarkers[0];
+      let marker: Marker;
+
+      beforeEach(() => {
+        service.setActiveMarker(mapMarker.id);
+        service.addMarkers(mapMarkers);
+        marker = new Marker(mapMarker.coords);
+        const markerMap = service.markerMap;
+        markerMap.get = () => marker;
+        spyOn(marker, `setZIndexOffset`).and.callThrough();
+        service.unsetActiveMarker();
+      });
+
+      it(`should call`, () => {
+        expect(marker.setZIndexOffset).toHaveBeenCalledTimes(1);
+      });
+
+      it(`should call with param`, () => {
+        expect(marker.setZIndexOffset).toHaveBeenCalledWith(0);
       });
     });
   });

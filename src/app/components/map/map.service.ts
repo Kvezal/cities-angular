@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
+import { Icon, Map as LeafletMap, Layer, Marker } from 'leaflet';
 
 import {
   ELayer,
   IMapCity,
   IMapMarker,
 } from './map.interface';
-import { Icon, Map as LeafletMap, Layer, Marker } from 'leaflet';
 import { LeafletProviderService } from './leaflet-provider.service';
 import { LayerMap } from './layer-map';
 
@@ -18,6 +18,7 @@ export class MapService {
   private readonly _activeIcon: Icon;
   private _markerMap: Map<string, Marker> = new Map([]);
   private _activeMarkerId: string;
+  private readonly _zIndexIncrease = 1000;
 
   get map(): LeafletMap {
     return this._map;
@@ -43,7 +44,8 @@ export class MapService {
   constructor(private readonly _leafletService: LeafletProviderService) {
     this._icon = this._leafletService.icon({
       iconUrl: `assets/images/icons/pin.svg`,
-      iconSize: [27, 39]
+      iconSize: [27, 39],
+
     });
     this._activeIcon = this._leafletService.icon({
       iconUrl: `assets/images/icons/pin-active.svg`,
@@ -71,6 +73,16 @@ export class MapService {
   }
 
 
+  public destroyMap(): void {
+    if (!this._map) {
+      return;
+    }
+    this._map.remove();
+    this._map.off();
+    this._map = null;
+  }
+
+
   public addLayer(layerName: ELayer): void {
     const layerSettings = LayerMap.get(layerName);
     const layer: Layer = this._leafletService.tileLayer(layerSettings.tile, layerSettings.options);
@@ -83,9 +95,6 @@ export class MapService {
 
   public addMarkers(mapMarkers: IMapMarker[]): void {
     mapMarkers.forEach((mapMarker: IMapMarker) => {
-      if (this._markerMap.has(mapMarker.id)) {
-        return;
-      }
       const marker: Marker = this.createMarker(mapMarker);
       this._markerMap.set(mapMarker.id, marker);
       if (mapMarker.id === this._activeMarkerId) {
@@ -95,6 +104,14 @@ export class MapService {
         marker.addTo(this._map);
       }
     });
+  }
+
+
+  public removeOldMarkers(): void {
+    this._markerMap.forEach((oldMarker: Marker) => {
+      oldMarker.remove();
+    });
+    this._markerMap.clear();
   }
 
 
@@ -111,6 +128,7 @@ export class MapService {
     const marker = this._markerMap.get(id);
     if (marker) {
       marker.setIcon(this.activeIcon);
+      marker.setZIndexOffset(this._zIndexIncrease);
     }
   }
 
@@ -120,6 +138,7 @@ export class MapService {
       return;
     }
     const activeMarker = this._markerMap.get(this._activeMarkerId);
+    activeMarker.setZIndexOffset(0);
     activeMarker.setIcon(this.icon);
   }
 }

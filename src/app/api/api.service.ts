@@ -12,7 +12,7 @@ import {
   providedIn: `root`
 })
 export class ApiService {
-  private readonly _baseUrl = `http://localhost:3000/api`;
+  private readonly _baseUrl = `/api`;
 
 
   constructor(private readonly _httpClient: HttpClient) {}
@@ -59,6 +59,9 @@ export class ApiService {
       .entries(queryParams)
       .map(([key, value]: [string, string | number | boolean]) => `${key}=${value}`)
       .join(`&`);
-    return [path, queries].join(`?`);
+    if (queries) {
+      return [path, queries].join(`?`);
+    }
+    return path;
   }
 }

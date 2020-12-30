@@ -31,7 +31,8 @@ module.exports = function (config) {
     singleRun: false,
     restartOnFileChange: true,
     phantomjsLauncher: {
-      exitOnResourceError: true
+      exitOnResourceError: true,
+      debug: true,
     },
   });
 };

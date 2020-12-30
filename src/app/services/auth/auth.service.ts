@@ -3,7 +3,10 @@ import {
   Observable,
   ReplaySubject
 } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import {
+  catchError,
+  switchMap
+} from 'rxjs/operators';
 
 import {
   AuthApiService,
@@ -27,7 +30,14 @@ export class AuthService {
 
   public loadUserInfo(): void {
     this._authApiService.loadAuthUserInfo()
-      .subscribe((user: IUserResponse) => this._userReplaySubject.next(user));
+      .subscribe({
+        next: (user: IUserResponse) => {
+          this._userReplaySubject.next(user);
+        },
+        error: () => {
+          this._userReplaySubject.next(null);
+        }
+      });
   }
 
 

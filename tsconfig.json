@@ -18,7 +18,8 @@
     ],
     "paths": {
       "@api": ["src/app/api"],
-      "@components/*": ["src/app/components/*"],
+      "@components": ["src/app/components"],
+      "@services": ["src/app/services"],
       "@interfaces": ["src/app/interfaces"]
     }
   }

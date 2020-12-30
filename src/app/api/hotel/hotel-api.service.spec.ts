@@ -5,7 +5,6 @@ import { IHotel } from '@interfaces';
 
 import { ApiService } from '../api.service';
 import { ApiPath } from '../api-path.enum';
-import { IApiOptions } from '../interfaces';
 import { HotelApiService } from './hotel-api.service';
 import { ESortingType } from './hotel.interface';
 import { ApiModule } from '../api.module';

@@ -9,7 +9,7 @@ import { OfferPageComponent } from './offer-page.component';
 
 const routes: Routes = [
   {
-    path: ``,
+    path: `:id`,
     component: OfferPageComponent,
   }
 ];

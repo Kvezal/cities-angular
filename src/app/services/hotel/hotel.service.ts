@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
+  combineLatest,
   Observable,
-  of,
   ReplaySubject
 } from 'rxjs';
-import {
-  first,
-  map,
-  mergeMap
-} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import {
   ESortingType,
@@ -22,14 +18,12 @@ import {
   IHotel,
   IList
 } from '@interfaces';
+
 import { CityService } from '../city';
 
 
 const NEARBY_HOTEL_COUNT = 3;
 
-export interface IHotelUpdateParams {
-  sorting: ESortingType;
-}
 
 @Injectable({
   providedIn: `root`
@@ -52,37 +46,40 @@ export class HotelService {
     private readonly _favoriteApiService: FavoriteApiService,
     private readonly _cityService: CityService,
   ) {
+    this._subscribeToCityAndSorting();
   }
 
 
-  public updateList(params: IHotelUpdateParams): void {
-    const { sorting } = params;
-    this._sortingBehaviorSubject.next(sorting);
-    this._cityService.city$
-      .pipe(
-        first(),
-        mergeMap((city: ICity) => {
-          const hotelParams: IList<IHotel> = this._hotelMap.get(city.id)?.get(sorting);
-          if (hotelParams) {
-            return of({city, hotelParams});
-          } else {
-            return this._hotelApiService
-              .loadList({
-                cityId: city.id,
-                sorting,
-              })
-              .pipe(
-                map((hotelList: IHotel[]) => ({
-                  city,
-                  hotelParams: {
-                    list: hotelList,
-                  },
-                }))
-              );
-          }
-        })
-      )
-      .subscribe(({city, hotelParams}) => {
+  private _subscribeToCityAndSorting(): void {
+    combineLatest([
+      this._cityService.city$,
+      this._sortingBehaviorSubject,
+    ])
+      .subscribe(([city, sorting]) => {
+        this.updateList(city, sorting);
+      });
+  }
+
+
+  public updateList(city: ICity, sorting: ESortingType): void {
+    const hotelParams: IList<IHotel> = this._hotelMap.get(city.id)?.get(sorting);
+    if (hotelParams) {
+      this._hotelParamsReplaySubject.next(hotelParams);
+    } else {
+      this._loadList(city, sorting);
+    }
+  }
+
+
+  private _loadList(city: ICity, sorting: ESortingType): void {
+    this._hotelApiService.loadList({
+      cityId: city.id,
+      sorting,
+    })
+      .subscribe((hotelList: IHotel[]) => {
+        const hotelParams = {
+          list: hotelList,
+        };
         const cityHotelMap = this._hotelMap.get(city.id);
         if (cityHotelMap) {
           cityHotelMap.set(sorting, hotelParams);
@@ -131,6 +128,11 @@ export class HotelService {
         this._updateHotelMaps(favorite.hotelId, {isFavorite: favorite.value});
         this._updateFavoriteHotel(favorite.hotelId, {isFavorite: favorite.value});
       });
+  }
+
+
+  public changeSorting(sorting: ESortingType): void {
+    this._sortingBehaviorSubject.next(sorting);
   }
 
 

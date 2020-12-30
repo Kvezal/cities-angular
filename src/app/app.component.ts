@@ -1,7 +1,9 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { IHeaderUser } from '@components';
+
+import { AppService } from './app.service';
 
 
 @Component({
@@ -9,8 +11,10 @@ import {
   templateUrl: `./app.component.html`,
   styleUrls: [`./app.component.scss`]
 })
-export class AppComponent implements OnInit {
-  constructor() {}
+export class AppComponent {
+  public readonly user$: Observable<IHeaderUser> = this._appService.user$;
 
-  ngOnInit(): void { }
+
+  constructor(private readonly _appService: AppService) {
+  }
 }

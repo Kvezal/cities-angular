@@ -33,7 +33,6 @@ export class FavoriteFlagComponent {
     } else {
       this._renderer.removeClass(this._elementRef.nativeElement, `active`);
     }
-    this.changeIsActiveOutput.emit(this.isActive);
   }
   get isActive(): boolean {
     return this._isActive;
@@ -47,6 +46,7 @@ export class FavoriteFlagComponent {
 
   @HostListener(`click`) clickFlagHandler(): void {
     this.isActive = !this.isActive;
+    this.changeIsActiveOutput.emit(this.isActive);
   }
 
   constructor(

@@ -31,19 +31,10 @@ export class SelectComponent {
   }
 
 
-  private _value: string;
   @Input()
-  public set value(value: string) {
-    this._value = value;
-    this.changeSelectionValueOutput.emit(value);
-    this._changeDetectorRef.markForCheck();
-  }
-  public get value(): string {
-    return this._value;
-  }
+  public value: string;
 
 
-  private _label: string;
   @Input() label = ``;
 
 
@@ -66,11 +57,19 @@ export class SelectComponent {
 
   public setSelectionValue(value: string): void {
     this.value = value;
+    this.changeSelectionValueOutput.emit(value);
+    this._changeDetectorRef.markForCheck();
   }
 
 
   public toggleSelectionList(): void {
     this.isOpen = !this.isOpen;
+  }
+
+
+  public getCurrentOptionName(): string {
+    const currentOption: ISelectOption = this.options.find((option: ISelectOption) => option.value === this.value);
+    return currentOption?.name || ``;
   }
 
 

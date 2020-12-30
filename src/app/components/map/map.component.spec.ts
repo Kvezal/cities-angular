@@ -112,6 +112,20 @@ describe(`MapComponent`, () => {
   });
 
   describe(`markers`, () => {
+    describe(`removeOldMarkers method of MapService`, () => {
+      it(`shouldn't call if "markers" property is empty`, () => {
+        const removeOldMarkers = spyOn(service, `removeOldMarkers`);
+        component.markers = [];
+        expect(removeOldMarkers).toHaveBeenCalledTimes(0);
+      });
+
+      it(`should call if "markers" property isn't empty`, () => {
+        const removeOldMarkers = spyOn(service, `removeOldMarkers`);
+        component.markers = mapMarkers;
+        expect(removeOldMarkers).toHaveBeenCalledTimes(1);
+      });
+    });
+
     describe(`addMarkers method of MapService`, () => {
       it(`shouldn't call if "markers" property is empty`, () => {
         const addMarkers = spyOn(service, `addMarkers`);

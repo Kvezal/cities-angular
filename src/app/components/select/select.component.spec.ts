@@ -22,7 +22,7 @@ const options: ISelectOption[] = [
   },
 ];
 
-fdescribe(`SelectComponent`, () => {
+describe(`SelectComponent`, () => {
   let component: SelectComponent;
   let fixture: ComponentFixture<SelectComponent>;
 
@@ -88,7 +88,7 @@ fdescribe(`SelectComponent`, () => {
       component.options = options;
     });
 
-    fit(`should set first option element by default`, () => {
+    it(`should set first option element by default`, () => {
       fixture.detectChanges();
       expect(component.value).toEqual(options[0].value);
     });
@@ -97,8 +97,8 @@ fdescribe(`SelectComponent`, () => {
       const lastOption: ISelectOption = options[options.length - 1];
       component.value = lastOption.value;
       fixture.detectChanges();
-      const value: HTMLSpanElement = fixture.nativeElement.querySelector(`.select__value span`);
-      expect(value.textContent.trim()).toBe(lastOption.value);
+      const label: HTMLSpanElement = fixture.nativeElement.querySelector(`.select__value span`);
+      expect(label.textContent.trim()).toBe(lastOption.name);
     });
 
     it(`should set active option`, () => {
@@ -158,8 +158,9 @@ fdescribe(`SelectComponent`, () => {
 
   describe(`isDisplayList`, () => {
     it(`shouldn't display option list by default`, () => {
+      fixture.detectChanges();
       const listContainer: HTMLUListElement = fixture.nativeElement.querySelector(`.select__list`);
-      expect(listContainer.hidden).toBeFalsy();
+      expect(listContainer.hidden).toBeTruthy();
     });
 
     it(`should open option list if click to value container`, () => {
@@ -167,7 +168,7 @@ fdescribe(`SelectComponent`, () => {
       const valueContainer: HTMLDivElement = fixture.nativeElement.querySelector(`.select__value`);
       valueContainer.click();
       fixture.detectChanges();
-      expect(listContainer.hidden).toBeTruthy();
+      expect(listContainer.hidden).toBeFalsy();
     });
   });
 });

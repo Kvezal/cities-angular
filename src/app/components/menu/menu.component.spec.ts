@@ -1,23 +1,20 @@
 import { Location } from '@angular/common';
-import { Component, NgZone } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router, Routes } from '@angular/router';
+import {
+  Component,
+  NgZone
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick
+} from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { IMenuItem } from '../menu';
 import { MenuComponent } from './menu.component';
 
-
-@Component({
-  template: `Search`
-})
-export class SearchComponent {
-}
-
-@Component({
-  template: `Home`
-})
-export class HomeComponent {
-}
 
 @Component({
   template: `<router-outlet></router-outlet>`
@@ -25,21 +22,16 @@ export class HomeComponent {
 export class AppComponent {
 }
 
-export const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
-  {path: 'search', component: SearchComponent}
-];
 
-const menuList = [
+const menuList: IMenuItem[] = [
   {
     id: `1`,
-    path: `/home`,
+    path: `home`,
     name: `home`,
   },
   {
     id: `2`,
-    path: `/search`,
+    path: `search`,
     name: `search`,
   },
 ];
@@ -55,7 +47,7 @@ describe(`MenuComponent`, () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes(routes),
+        RouterTestingModule.withRoutes([]),
       ],
       declarations: [
         MenuComponent,
@@ -108,29 +100,35 @@ describe(`MenuComponent`, () => {
   });
 
   describe(`navigation by menu items`, () => {
-    it(`should navigate`, async () => {
+    it(`should navigate correctly`, fakeAsync(() => {
       component.menuList = menuList;
       fixture.detectChanges();
-      await zone.run(async () => {
-        router.initialNavigation();
-        for (const menuItem of menuList) {
-          await router.navigate([menuItem.path]);
-          expect(location.path()).toBe(menuItem.path);
-        }
+
+      const menuItems = fixture.nativeElement.querySelectorAll(`.menu__link`);
+      menuItems.forEach((item, index) => {
+        item.click();
+        tick();
+        expect(location.path()).toMatch(menuList[index].path);
       });
+    }));
+  });
+
+  describe(`activeFragment`, () => {
+    it(`should be empty by default`, () => {
+      expect(component.activeFragment).toBeUndefined();
     });
 
-    it(`should set active class correctly`, async () => {
+    it(`should set active class to menu option`, fakeAsync(() => {
       component.menuList = menuList;
       fixture.detectChanges();
-      await zone.run(async () => {
-        router.initialNavigation();
-        for (const menuItem of menuList) {
-          await router.navigate([menuItem.path]);
-          const activeMenuItem = fixture.nativeElement.querySelector(`.menu__link--active`);
-          expect(activeMenuItem.href).toMatch(menuItem.path);
-        }
+      const menuLinks = fixture.nativeElement.querySelectorAll(`.menu__link`);
+      menuLinks.forEach((link, index) => {
+        link.click();
+        tick();
+        fixture.detectChanges();
+        const activeLink = fixture.nativeElement.querySelector(`.menu__link--active`);
+        expect(activeLink.textContent).toBe(menuList[index].name);
       });
-    });
+    }));
   });
 });

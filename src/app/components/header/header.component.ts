@@ -4,7 +4,6 @@ import {
   Input,
   OnInit
 } from '@angular/core';
-
 import { IHeaderUser } from './header.interface';
 
 
@@ -15,9 +14,7 @@ import { IHeaderUser } from './header.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
-  @Input() email: string;
-
-  @Input() image: string;
+  @Input() user: IHeaderUser;
 
 
   constructor() { }
@@ -25,5 +22,4 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

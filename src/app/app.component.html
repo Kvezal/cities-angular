@@ -1,40 +1,6 @@
-<header class="header">
-  <div class="container">
-    <div class="header__wrapper">
-      <div class="header__left">
-        <a class="header__logo-link" routerLink="/">
-          <img class="header__logo" src="assets/images/logo.svg" alt="6 cities logo" width="81" height="41">
-        </a>
-      </div>
-      <nav class="header__nav">
-        <ul class="header__nav-list">
-          <li class="header__nav-item user">
-            <a class="header__nav-link header__nav-link--profile" href="#">
-              <div class="header__avatar-wrapper user__avatar-wrapper">
-                <img class="header__avatar" src="assets/images/avatar.svg" alt="avatar">
-              </div>
-              <span class="header__user-name user__name">Oliver.conner@gmail.com</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header>
+<app-header
+  class="header"
+  [user]="user$ | async"
+></app-header>
 
-Main page component
-<a routerLink="offer">offer</a>
-<br>
-<a routerLink="login">login</a>
-<br>
-<a routerLink="favorite">favorite</a>
-<br>
-<a routerLink [fragment]="'city1'">city1</a>
-<br>
-<a routerLink [fragment]="'city2'">city2</a>
-<br>
-<a routerLink [fragment]="'city3'">city3</a>
-<br>
-<a routerLink [fragment]="'city4'">city4</a>
-<br>
 <router-outlet></router-outlet>

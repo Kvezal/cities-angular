@@ -61,12 +61,12 @@ describe(`CityService`, () => {
   });
 
   describe(`switchCity`, () => {
-    it(`shouldn't have a city by default`, () => {
+    it(`shouldn't have the first city by default`, () => {
       let city: ICity;
       service.city$.subscribe((newCity: ICity) => {
         city = newCity;
       });
-      expect(city).toBeUndefined();
+      expect(city).toBe(cityList[0]);
     });
 
     it(`should switch a city before call switchCity method`, () => {

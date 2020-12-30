@@ -1,13 +1,17 @@
+import { Location } from '@angular/common';
 import {
   ComponentFixture,
   fakeAsync,
   TestBed,
   tick
 } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { EFavoriteFlagType, FavoriteFlagModule } from '@components/favorite-flag';
-import { RatingModule } from '@components/rating';
-
+import {
+  EFavoriteFlagType,
+  FavoriteFlagModule
+} from '../favorite-flag';
+import { RatingModule } from '../rating';
 import { HotelCardComponent } from './hotel-card.component';
 import { EHotelCardType } from './hotel-card.interface';
 
@@ -15,10 +19,14 @@ import { EHotelCardType } from './hotel-card.interface';
 describe(`HotelCardComponent`, () => {
   let component: HotelCardComponent;
   let fixture: ComponentFixture<HotelCardComponent>;
+  let location: Location;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule.withRoutes([
+          { path: `offer/:id`, component: HotelCardComponent }
+        ]),
         FavoriteFlagModule,
         RatingModule,
       ],
@@ -30,9 +38,11 @@ describe(`HotelCardComponent`, () => {
 
     fixture = TestBed.createComponent(HotelCardComponent);
     component = fixture.componentInstance;
+    location = TestBed.inject(Location);
   });
 
   it(`should create`, () => {
+    component.id = `a9622399-37a9-4ce3-9cc1-e60621baa83e`;
     component.title = `Nice, cozy, warm big bed apartment`;
     component.price = 100;
     component.rating = 4;
@@ -43,6 +53,42 @@ describe(`HotelCardComponent`, () => {
     component.cardType = EHotelCardType.SMALL;
     fixture.detectChanges();
     expect(component).toBeTruthy();
+  });
+
+  describe(`id`, () => {
+    const hotelId = `a9622399-37a9-4ce3-9cc1-e60621baa83e`;
+
+    it(`should set image link href`, () => {
+      component.id = hotelId;
+      fixture.detectChanges();
+      const link = fixture.nativeElement.querySelector(`.hotel-card__image-wrapper a`);
+      expect(link.href).toMatch(hotelId);
+    });
+
+    it(`should redirect to hotel page`, fakeAsync(() => {
+      component.id = hotelId;
+      fixture.detectChanges();
+      const link: HTMLAnchorElement = fixture.nativeElement.querySelector(`.hotel-card__image-wrapper a`);
+      link.click();
+      tick();
+      expect(location.path()).toMatch(hotelId);
+    }));
+
+    it(`should set hotel name link href`, () => {
+      component.id = hotelId;
+      fixture.detectChanges();
+      const link = fixture.nativeElement.querySelector(`.hotel-card__name a`);
+      expect(link.href).toMatch(hotelId);
+    });
+
+    it(`should redirect to hotel page`, fakeAsync(() => {
+      component.id = hotelId;
+      fixture.detectChanges();
+      const link: HTMLAnchorElement = fixture.nativeElement.querySelector(`.hotel-card__name a`);
+      link.click();
+      tick();
+      expect(location.path()).toMatch(hotelId);
+    }));
   });
 
   describe(`title`, () => {
@@ -131,7 +177,7 @@ describe(`HotelCardComponent`, () => {
       component.image = `assets/images/test/apartment-03.jpg`;
       fixture.detectChanges();
       const image = fixture.nativeElement.querySelector(`.hotel-card__image`);
-      expect(image.src).toMatch(/assets\/images\/test\/apartment\-03.jpg$/);
+      expect(image.src).toMatch(/assets\/images\/test\/apartment-03.jpg$/);
     });
   });
 

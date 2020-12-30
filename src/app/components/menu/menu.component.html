@@ -1,7 +1,12 @@
 <nav class="menu">
   <ul class="menu__list">
     <li class="menu__item" *ngFor="let menuItem of menuList; trackBy:trackById">
-      <a class="menu__link" [routerLink]="menuItem.path" routerLinkActive="menu__link--active">
+      <a
+        class="menu__link"
+        routerLink
+        [fragment]="menuItem.path"
+        [class.menu__link--active]="activeFragment === menuItem.path"
+      >
         <span>{{menuItem.name}}</span>
       </a>
     </li>

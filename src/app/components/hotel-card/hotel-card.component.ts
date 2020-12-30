@@ -8,8 +8,7 @@ import {
   Output
 } from '@angular/core';
 
-import { EFavoriteFlagType } from '@components/favorite-flag';
-
+import { EFavoriteFlagType } from '../favorite-flag';
 import { hotelCardTypeToFavoriteFlagTypeMap } from './hotel-card.map';
 import { EHotelCardType } from './hotel-card.interface';
 
@@ -23,13 +22,29 @@ import { EHotelCardType } from './hotel-card.interface';
 export class HotelCardComponent {
   @Output() changeIsFavoriteValue = new EventEmitter<boolean>();
 
-  @Input() title = ``;
-  @Input() price = 0;
-  @Input() rating = 0;
-  @Input() isPremium = false;
-  @Input() hotelType = ``;
-  @Input() image = ``;
-  @Input() isFavorite = false;
+  @Input()
+  public id: string;
+
+  @Input()
+  public title = ``;
+
+  @Input()
+  public price = 0;
+
+  @Input()
+  public rating = 0;
+
+  @Input()
+  public isPremium = false;
+
+  @Input()
+  public hotelType = ``;
+
+  @Input()
+  public image = ``;
+
+  @Input()
+  public isFavorite = false;
 
 
   private _cardType: EHotelCardType = EHotelCardType.MIDDLE;
@@ -40,6 +55,7 @@ export class HotelCardComponent {
     this.favoriteFlagType = hotelCardTypeToFavoriteFlagTypeMap.get(this._cardType);
     this._changeDetectorRef.markForCheck();
   }
+
 
   public get cardType(): EHotelCardType {
     return this._cardType;

@@ -62,28 +62,34 @@ describe(`HeaderComponent`, () => {
   describe(`email param`, () => {
     it(`should set .header__nav-link.href equal /login if user doesn't exist`, () => {
       const userLink = fixture.nativeElement.querySelector(`.header__nav-link`);
-      component.email = null;
+      component.user = null;
       fixture.detectChanges();
       expect(userLink.href).toMatch(`/login`);
     });
 
     it(`should set .header__nav-link.href equal /favorite if user exists`, () => {
       const userLink = fixture.nativeElement.querySelector(`.header__nav-link`);
-      component.email = `email@gmail.com`;
+      component.user = {
+        email: `email@gmail.com`,
+        image: null,
+      };
       fixture.detectChanges();
       expect(userLink.href).toMatch(`/favorite`);
     });
 
     it(`span.header__user should contain email if user exists`, () => {
       const userSpan = fixture.nativeElement.querySelector(`.header__user`);
-      component.email = `email@gmail.com`;
+      component.user = {
+        email: `email@gmail.com`,
+        image: null,
+      };
       fixture.detectChanges();
       expect(userSpan.textContent).toEqual(`email@gmail.com`);
     });
 
     it(`span.header__user should contain 'Sign in' if user doesn't exists`, () => {
       const userSpan = fixture.nativeElement.querySelector(`.header__user`);
-      component.email = null;
+      component.user = null;
       fixture.detectChanges();
       expect(userSpan.textContent).toEqual(`Sign in`);
     });
@@ -92,7 +98,7 @@ describe(`HeaderComponent`, () => {
   describe(`image param`, () => {
     it(`user avatar should contain placeholder by default`, () => {
       const userLink = fixture.nativeElement.querySelector(`.header__avatar`);
-      component.image = null;
+      component.user = null;
       fixture.detectChanges();
       expect(userLink.src).toMatch(`/assets/images/avatar.svg`);
     });
@@ -100,7 +106,10 @@ describe(`HeaderComponent`, () => {
     it(`user avatar should contain image`, () => {
       const imagePath = `/assets/images/test/1.jpg`;
       const userLink = fixture.nativeElement.querySelector(`.header__avatar`);
-      component.image = imagePath;
+      component.user = {
+        email: null,
+        image: imagePath,
+      };
       fixture.detectChanges();
       expect(userLink.src).toMatch(imagePath);
     });

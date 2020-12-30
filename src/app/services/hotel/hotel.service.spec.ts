@@ -120,7 +120,7 @@ describe(`HotelService`, () => {
         {
           provide: CityApiService,
           useValue: {
-            loadList: () => of(cityList),
+            loadList: () => of(),
           }
         }
       ],
@@ -136,36 +136,19 @@ describe(`HotelService`, () => {
   });
 
   describe(`updateList`, () => {
-    beforeEach(() => {
-      cityService.switchCity(cityList[0].id);
-    });
-
     it(`should call loadList of HotelApiService if haven't hotel list for current sorting, city and pack`, () => {
       const loadList = spyOn(hotelApiService, `loadList`).and.callThrough();
-      service.updateList({
-        sorting: ESortingType.POPULAR,
-      });
-      service.updateList({
-        sorting: ESortingType.RATING,
-      });
-      cityService.switchCity(cityList[1].id);
-      service.updateList({
-        sorting: ESortingType.RATING,
-      });
+      service.updateList(cityList[0], ESortingType.POPULAR);
+      service.updateList(cityList[0], ESortingType.RATING);
+      service.updateList(cityList[1], ESortingType.RATING);
       expect(loadList).toHaveBeenCalledTimes(3);
     });
 
     it(`shouldn't call loadList of HotelApiService if has hotel list for current sorting, city and pack`, () => {
       const loadList = spyOn(hotelApiService, `loadList`).and.callThrough();
-      service.updateList({
-        sorting: ESortingType.POPULAR,
-      });
-      service.updateList({
-        sorting: ESortingType.POPULAR,
-      });
-      service.updateList({
-        sorting: ESortingType.POPULAR,
-      });
+      service.updateList(cityList[0], ESortingType.POPULAR);
+      service.updateList(cityList[0], ESortingType.POPULAR);
+      service.updateList(cityList[0], ESortingType.POPULAR);
       expect(loadList).toHaveBeenCalledTimes(1);
     });
 
@@ -174,17 +157,13 @@ describe(`HotelService`, () => {
       service.hotelParams$.subscribe((hotelParams: IList<IHotel>) => {
         hotelList = hotelParams.list;
       });
-      service.updateList({
-        sorting: ESortingType.POPULAR,
-      });
+      service.updateList(cityList[0], ESortingType.POPULAR);
       expect(hotelList).toEqual([hotel]);
     });
 
     it(`should call loadList of HotelApiService with correct params`, () => {
       const loadList = spyOn(hotelApiService, `loadList`).and.callThrough();
-      service.updateList({
-        sorting: ESortingType.POPULAR,
-      });
+      service.updateList(cityList[0], ESortingType.POPULAR);
       expect(loadList).toHaveBeenCalledWith({
         cityId: cityList[0].id,
         sorting: ESortingType.POPULAR,
@@ -197,20 +176,6 @@ describe(`HotelService`, () => {
         sorting = newSorting;
       });
       expect(sorting).toEqual(ESortingType.POPULAR);
-    });
-
-    it(`should emit sorting`, () => {
-      let sorting: ESortingType = ESortingType.POPULAR;
-      service.sorting$.subscribe((newSorting: ESortingType) => {
-        sorting = newSorting;
-      });
-      [ESortingType.RATING, ESortingType.POPULAR, ESortingType.HIGH_PRICE, ESortingType.LOW_PRICE]
-        .forEach((emittedSorting: ESortingType) => {
-          service.updateList({
-            sorting: emittedSorting,
-          });
-          expect(sorting).toEqual(emittedSorting);
-        });
     });
   });
 
@@ -291,27 +256,17 @@ describe(`HotelService`, () => {
         hotelList = hotelParams.list;
       });
       cityService.switchCity(cityList[0].id);
-      service.updateList({
-        sorting: ESortingType.POPULAR,
-      });
+      service.updateList(cityList[0], ESortingType.POPULAR);
       expect(hotelList[0].isFavorite).toBeFalsy();
       cityService.switchCity(cityList[1].id);
-      service.updateList({
-        sorting: ESortingType.LOW_PRICE,
-      });
+      service.updateList(cityList[1], ESortingType.LOW_PRICE);
       expect(hotelList[0].isFavorite).toBeFalsy();
 
       service.toggleFavoriteStatus(hotelId);
 
-      cityService.switchCity(cityList[0].id);
-      service.updateList({
-        sorting: ESortingType.POPULAR,
-      });
+      service.updateList(cityList[0], ESortingType.POPULAR);
       expect(hotelList[0].isFavorite).toBeTruthy();
-      cityService.switchCity(cityList[1].id);
-      service.updateList({
-        sorting: ESortingType.LOW_PRICE,
-      });
+      service.updateList(cityList[1], ESortingType.LOW_PRICE);
       expect(hotelList[0].isFavorite).toBeTruthy();
     });
   });

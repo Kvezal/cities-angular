@@ -26,7 +26,7 @@ const comment: IComment = {
     id: `0b88066e-c543-451f-b4a0-67c0729335da`,
     name: `kvezal`,
     type: `standard`,
-    image: `path/to/image.jpg`,
+    image: `assets/images/test/1.jpg`,
   },
 };
 
