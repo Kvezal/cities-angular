@@ -68,18 +68,4 @@ describe(`CityLinkComponent`, () => {
       expect(link.href).toMatch(/\/test$/);
     });
   });
-
-  describe(`label`, () => {
-    it(`should be empty by default`, () => {
-      const link = fixture.nativeElement.querySelector(`.city-link`);
-      expect(link.textContent.trim()).toBe(``);
-    });
-
-    it(`should display label with value`, () => {
-      component.label = `test`;
-      fixture.detectChanges();
-      const label = fixture.nativeElement.querySelector(`.city-link__label`);
-      expect(label.textContent.trim()).toBe(`test`);
-    });
-  });
 });

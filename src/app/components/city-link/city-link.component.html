@@ -2,5 +2,7 @@
   class="city-link"
   [routerLink]="path"
 >
-  <span class="city-link__label">{{label}}</span>
+  <span class="city-link__label">
+    <ng-content></ng-content>
+  </span>
 </a>

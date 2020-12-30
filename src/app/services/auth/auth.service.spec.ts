@@ -81,7 +81,7 @@ describe(`AuthService`, () => {
 
     it(`should call loadAuthUserInfo method of AuthApiService`, () => {
       const loadAuthUserInfo = spyOn(authApiService, `loadAuthUserInfo`).and.callThrough();
-      service.login(authLoginParams);
+      service.login(authLoginParams).subscribe();
       expect(loadAuthUserInfo).toHaveBeenCalledTimes(1);
     });
 

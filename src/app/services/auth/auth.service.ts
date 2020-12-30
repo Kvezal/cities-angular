@@ -5,7 +5,8 @@ import {
 } from 'rxjs';
 import {
   catchError,
-  switchMap
+  switchMap,
+  tap
 } from 'rxjs/operators';
 
 import {
@@ -41,12 +42,14 @@ export class AuthService {
   }
 
 
-  public login(params: IAuthLoginParams): void {
-    this._authApiService.login(params)
+  public login(params: IAuthLoginParams): Observable<IUserResponse> {
+    return this._authApiService.login(params)
       .pipe(
         switchMap(() => this._authApiService.loadAuthUserInfo())
       )
-      .subscribe((user: IUserResponse) => this._userReplaySubject.next(user));
+      .pipe(
+        tap((user: IUserResponse) => this._userReplaySubject.next(user))
+      );
   }
 
 

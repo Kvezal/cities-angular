@@ -13,7 +13,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CityLinkComponent {
-  @Input() label = ``;
   @Input() path = ``;
 
 
