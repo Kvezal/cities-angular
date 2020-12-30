@@ -183,6 +183,7 @@ describe(`HotelCardComponent`, () => {
 
   describe(`isFavorite`, () => {
     it(`should set "false" by default`, () => {
+      component.hasFavoriteFlag = true;
       fixture.detectChanges();
       const favorite = fixture.nativeElement.querySelector(`.hotel-card__favorite`);
       expect(favorite.getAttribute(`ng-reflect-is-active`)).toBe(`false`);
@@ -190,12 +191,15 @@ describe(`HotelCardComponent`, () => {
 
     it(`should set isFavorite flag`, () => {
       component.isFavorite = true;
+      component.hasFavoriteFlag = true;
       fixture.detectChanges();
       const favorite = fixture.nativeElement.querySelector(`.hotel-card__favorite`);
       expect(favorite.getAttribute(`ng-reflect-is-active`)).toBe(`true`);
     });
 
     it(`should emit isFavorite value`, fakeAsync(() => {
+      component.hasFavoriteFlag = true;
+      fixture.detectChanges();
       let result;
       component.changeIsFavoriteValue.subscribe((value) => {
         result = value;
@@ -236,6 +240,8 @@ describe(`HotelCardComponent`, () => {
     });
 
     it(`should change favorite type attribute`, () => {
+      component.hasFavoriteFlag = true;
+      fixture.detectChanges();
       const favorite = fixture.nativeElement.querySelector(`.hotel-card__favorite`);
 
       component.cardType = EHotelCardType.SMALL;
@@ -245,6 +251,20 @@ describe(`HotelCardComponent`, () => {
       component.cardType = EHotelCardType.MIDDLE;
       fixture.detectChanges();
       expect(favorite.getAttribute(`ng-reflect-type`)).toBe(EFavoriteFlagType.SMALL_SKEW);
+    });
+  });
+
+  describe(`hasFavoriteFlag`, () => {
+    it(`shouldn't contain favorite flag by default`, () => {
+      const favoriteFlag = fixture.nativeElement.querySelector(`app-favorite-flag`);
+      expect(favoriteFlag).toBeNull();
+    });
+
+    it(`should contain favorite flag`, () => {
+      component.hasFavoriteFlag = true;
+      fixture.detectChanges();
+      const favoriteFlag = fixture.nativeElement.querySelector(`app-favorite-flag`);
+      expect(favoriteFlag).not.toBeNull();
     });
   });
 });

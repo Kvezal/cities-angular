@@ -19,6 +19,7 @@
     </div>
     <app-favorite-flag
       class="hotel-card__favorite"
+      *ngIf="hasFavoriteFlag"
       [type]="favoriteFlagType"
       [isActive]="isFavorite"
       (changeIsActiveOutput)="changeIsFavoriteValue.emit($event)"

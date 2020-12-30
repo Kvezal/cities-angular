@@ -20,7 +20,7 @@ import {
 })
 export class AuthService {
   private readonly _userReplaySubject: ReplaySubject<IUserResponse> = new ReplaySubject(1);
-  public readonly user$: Observable<IUserResponse> = this._userReplaySubject.asObservable();
+  public user$: Observable<IUserResponse> = this._userReplaySubject.asObservable();
 
 
   constructor(private readonly _authApiService: AuthApiService) {

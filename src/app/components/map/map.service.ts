@@ -13,10 +13,10 @@ import { LayerMap } from './layer-map';
 @Injectable()
 export class MapService {
   private _map: LeafletMap;
-  private _layerSet: Set<Layer> = new Set([]);
+  private readonly _layerSet: Set<Layer> = new Set([]);
   private readonly _icon: Icon;
   private readonly _activeIcon: Icon;
-  private _markerMap: Map<string, Marker> = new Map([]);
+  private readonly _markerMap: Map<string, Marker> = new Map([]);
   private _activeMarkerId: string;
   private readonly _zIndexIncrease = 1000;
 
@@ -138,6 +138,9 @@ export class MapService {
       return;
     }
     const activeMarker = this._markerMap.get(this._activeMarkerId);
+    if (!activeMarker) {
+      return;
+    }
     activeMarker.setZIndexOffset(0);
     activeMarker.setIcon(this.icon);
   }

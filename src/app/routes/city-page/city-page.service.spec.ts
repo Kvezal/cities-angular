@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import {
+  AuthService,
   CityService,
   HotelService
 } from '@services';
@@ -15,7 +16,10 @@ import {
   IMapMarker,
   IMenuItem
 } from '@components';
-import { ESortingType } from '@api';
+import {
+  ESortingType,
+  IUserResponse
+} from '@api';
 
 
 const cityList: ICity[] = [
@@ -106,8 +110,16 @@ const markerList: IMapMarker[] = hotelParams.list.map((newHotel: IHotel) => ({
   },
 }));
 
+const user: IUserResponse = {
+  id: `023dda52-f07b-47ef-a44c-2301f8743149`,
+  name: `kvezal`,
+  email: `kvezal@gmail.com`,
+  image: `assets/images/test/1.jpg`,
+};
+
 describe(`CityPageService`, () => {
   let service: CityPageService;
+  let authService: AuthService;
   let cityService: CityService;
   let hotelService: HotelService;
 
@@ -115,6 +127,12 @@ describe(`CityPageService`, () => {
     TestBed.configureTestingModule({
       providers: [
         CityPageService,
+        {
+          provide: AuthService,
+          useValue: {
+            user$: of(user),
+          }
+        },
         {
           provide: CityService,
           useValue: {
@@ -136,6 +154,7 @@ describe(`CityPageService`, () => {
     });
 
     service = TestBed.inject(CityPageService);
+    authService = TestBed.inject(AuthService);
     cityService = TestBed.inject(CityService);
     hotelService = TestBed.inject(HotelService);
   });
@@ -201,6 +220,14 @@ describe(`CityPageService`, () => {
     });
 
     expect(sorting).toBe(ESortingType.POPULAR);
+  });
+
+  it(`isAuthorized$ should emit 'true' values`, () => {
+    let isAuthorized: boolean;
+    service.isAuthorized$.subscribe((emittedIsAuthorized: boolean) => {
+      isAuthorized = emittedIsAuthorized;
+    });
+    expect(isAuthorized).toBeTrue();
   });
 
 

@@ -5,7 +5,10 @@ import {
   map
 } from 'rxjs/operators';
 
-import { ESortingType } from '@api';
+import {
+  ESortingType,
+  IUserResponse
+} from '@api';
 import {
   IMapCity,
   IMapMarker,
@@ -15,9 +18,11 @@ import {
 import {
   ICity,
   IHotel,
-  IList
+  IList,
+  IUser
 } from '@interfaces';
 import {
+  AuthService,
   CityService,
   HotelService
 } from '@services';
@@ -25,6 +30,12 @@ import {
 
 @Injectable()
 export class CityPageService {
+  public isAuthorized$: Observable<boolean> = this._authService
+    .user$
+    .pipe(
+      map((user: IUserResponse) => user !== null)
+    );
+
   public city$: Observable<ICity> = this._cityService.city$;
 
   public mapCityParams$: Observable<IMapCity> = this._cityService
@@ -75,6 +86,7 @@ export class CityPageService {
 
 
   constructor(
+    private readonly _authService: AuthService,
     private readonly _cityService: CityService,
     private readonly _hotelService: HotelService,
   ) {

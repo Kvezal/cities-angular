@@ -7,22 +7,28 @@
   ></app-menu>
 </div>
 <div class="cities">
-  <div class="cities__places-container container">
+  <div
+    class="cities__places-container container"
+  >
     <section
       class="cities__places places"
-      *ngIf="(hotelParams$ | async) as hotelParams"
+      *ngIf="{
+        isAuthorized: isAuthorized$ | async,
+        hotelParams: hotelParams$ | async,
+        sorting: sorting$ | async
+      } as params"
     >
       <h2 class="visually-hidden">Places</h2>
       <b class="places__found">312 places to stay in Amsterdam</b>
       <app-select
         class="places__sorting"
         [options]="sortingOptions"
-        [value]="sorting$ | async"
+        [value]="params.sorting"
         (changeSelectionValueOutput)="switchHotelSorting($event)"
       ></app-select>
       <div class="cities__places-list places__list tabs__content">
         <app-hotel-card
-          *ngFor="let hotel of hotelParams.list"
+          *ngFor="let hotel of params.hotelParams?.list"
           [id]="hotel.id"
           [title]="hotel.title"
           [price]="hotel.price"
@@ -31,6 +37,7 @@
           [hotelType]="hotel.type"
           [image]="hotel.images[0]"
           [isFavorite]="hotel.isFavorite"
+          [hasFavoriteFlag]="params.isAuthorized"
           (changeIsFavoriteValue)="toggleFavoriteStatus(hotel.id)"
           (mouseenter)="setActiveMarkerId(hotel.location.id)"
         ></app-hotel-card>

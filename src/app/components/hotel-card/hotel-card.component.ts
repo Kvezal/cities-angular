@@ -46,6 +46,9 @@ export class HotelCardComponent {
   @Input()
   public isFavorite = false;
 
+  @Input()
+  public hasFavoriteFlag = false;
+
 
   private _cardType: EHotelCardType = EHotelCardType.MIDDLE;
   @Input()

@@ -32,6 +32,7 @@ import { CityPageService } from './city-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityPageComponent implements OnInit {
+  public isAuthorized$: Observable<boolean> = this._cityPageService.isAuthorized$;
   public hotelParams$: Observable<IList<IHotel>> = this._cityPageService.hotelParams$;
   public menuList$: Observable<IMenuItem[]> = this._cityPageService.menuList$;
   public sorting$: Observable<ESortingType> = this._cityPageService.sorting$;
