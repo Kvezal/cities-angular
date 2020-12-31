@@ -1,0 +1,101 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 91px;
+
+  background-color: #ffffff;
+}
+
+.favorites {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 0px 74px 93px;
+  border-bottom: 2px solid rgba(222, 222, 222, .5);
+}
+
+.favorites__card {
+  margin-bottom: 32px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.favorites--empty {
+  width: 100%;
+  padding: 0 0 93px 38px
+}
+
+.favorites__status {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 32px;
+  line-height: 1.1875
+}
+
+.favorites__status-description {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0 30px;
+  font-size: 16px;
+  line-height: 1.5
+}
+
+.favorites__status-wrapper {
+  width: 420px;
+  margin-top: 16.7vh;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 94px;
+  text-align: center;
+  background-image: url(../../../assets/images/icons/ico-saved.svg);
+  background-size: 60px 73px;
+  background-position: center top;
+  background-repeat: no-repeat
+}
+
+.favorites__title {
+  margin-top: 0;
+  margin-bottom: 49px;
+  font-size: 32px;
+  line-height: 1.1429;
+  font-weight: 700;
+  font-style: oblique;
+  text-align: center
+}
+
+.favorites__list {
+  margin: 0;
+  padding: 0;
+  list-style: none
+}
+
+.favorites__locations-items {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 52px
+}
+
+.favorites__locations-items:last-child {
+  margin-bottom: 0
+}
+
+.favorites__locations {
+  display: flex;
+  width: 244px;
+  margin-right: 20px
+}
+
+.favorites__card {
+  display: flex;
+  align-items: flex-start;
+  width: 421px;
+  margin-bottom: 32px
+}
+
+.favorite__footer {
+  margin-top: auto;
+}

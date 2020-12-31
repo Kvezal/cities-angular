@@ -121,12 +121,15 @@ export class HotelService {
   }
 
 
-  public toggleFavoriteStatus(hotelId: string): void {
+  public toggleFavoriteStatus(hotelId: string, canRemoveFromFavoriteList = true): void {
     this._favoriteApiService
       .toggleFavoriteStatus(hotelId)
       .subscribe((favorite: IFavoriteResponse) => {
         this._updateHotelMaps(favorite.hotelId, {isFavorite: favorite.value});
         this._updateFavoriteHotel(favorite.hotelId, {isFavorite: favorite.value});
+        if (canRemoveFromFavoriteList) {
+          this.removeNotFavoriteHotelsFromFavoriteList();
+        }
       });
   }
 
@@ -136,7 +139,15 @@ export class HotelService {
   }
 
 
-  public _updateHotelMaps(hotelId: string, updatedHotelParams: Partial<IHotel>): void {
+  public removeNotFavoriteHotelsFromFavoriteList(): void {
+    const favoriteHotelList = this._favoriteHotelListBehaviorSubject
+      .getValue()
+      .filter((hotel: IHotel) => hotel.isFavorite);
+    this._favoriteHotelListBehaviorSubject.next(favoriteHotelList);
+  }
+
+
+  private _updateHotelMaps(hotelId: string, updatedHotelParams: Partial<IHotel>): void {
     const updatedParamNames = Object.keys(updatedHotelParams);
     this._hotelMap.forEach((cityHotelMaps: Map<ESortingType, IList<IHotel>>) => {
       cityHotelMaps.forEach((sortingHotels: IList<IHotel>) => {
@@ -153,16 +164,25 @@ export class HotelService {
   }
 
 
-  public _updateFavoriteHotel(hotelId: string, updatedHotelParams: Partial<IHotel>): void {
+  private _updateFavoriteHotel(hotelId: string, updatedHotelParams: Partial<IHotel>): void {
     const updatedParamNames = Object.keys(updatedHotelParams);
     const favoriteHotel = this._favoriteHotelListBehaviorSubject
       .getValue()
       .find((hotel: IHotel) => hotel.id === hotelId);
     if (!favoriteHotel) {
-      return;
+      return this._addHotelToFavoriteList(hotelId);
     }
     updatedParamNames.forEach((paramName: string) => {
       favoriteHotel[paramName] = updatedHotelParams[paramName];
+    });
+  }
+
+
+  private _addHotelToFavoriteList(hotelId: string): void {
+    this.loadHotel(hotelId).subscribe((hotel: IHotel) => {
+      const favoriteHotelList = this._favoriteHotelListBehaviorSubject.getValue();
+      favoriteHotelList.push(hotel);
+      this._favoriteHotelListBehaviorSubject.next(favoriteHotelList);
     });
   }
 }

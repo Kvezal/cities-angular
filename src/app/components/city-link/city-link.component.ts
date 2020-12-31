@@ -14,6 +14,7 @@ import {
 })
 export class CityLinkComponent {
   @Input() path = ``;
+  @Input() hash: string;
 
 
   constructor(

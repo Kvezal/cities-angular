@@ -4,9 +4,15 @@ import {
   Component,
   OnInit
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import {
+  filter,
+  first
+} from 'rxjs/operators';
 
 import { ESortingType } from '@api';
 import {
@@ -46,6 +52,7 @@ export class CityPageComponent implements OnInit {
   constructor(
     private readonly _cityPageService: CityPageService,
     private readonly _router: Router,
+    private readonly _activatedRoute: ActivatedRoute,
     private readonly _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
@@ -80,6 +87,7 @@ export class CityPageComponent implements OnInit {
     this._cityPageService.city$
       .pipe(
         first(),
+        filter(() => !this._activatedRoute.snapshot.fragment)
       )
       .subscribe((city: ICity) => {
         this._router.navigate([], {fragment: city.title});

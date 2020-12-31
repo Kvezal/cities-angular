@@ -94,6 +94,12 @@ const favorite: IFavoriteResponse = {
   value: true,
 };
 
+const hotelList: IHotel[] = [
+  {...hotel, isFavorite: false},
+  hotel,
+  {...hotel, isFavorite: true},
+];
+
 describe(`HotelService`, () => {
   let service: HotelService;
   let hotelApiService: HotelApiService;
@@ -135,6 +141,19 @@ describe(`HotelService`, () => {
     expect(service).toBeTruthy();
   });
 
+  it(`removeNotFavoriteHotelsFromFavoriteList should delete all isn't favorite hotels from favoriteHotelList`, () => {
+    spyOn(hotelApiService, `loadList`).and.returnValue(of(hotelList));
+    service.loadFavoriteHotels();
+    let favoriteList: IHotel[];
+    service.favoriteHotelList$.subscribe((emittedFavoriteList: IHotel[]) => {
+      favoriteList = emittedFavoriteList;
+    });
+    expect(favoriteList).toEqual(hotelList);
+    service.removeNotFavoriteHotelsFromFavoriteList();
+    expect(favoriteList).toEqual([{...hotel, isFavorite: true}]);
+  });
+
+
   describe(`updateList`, () => {
     it(`should call loadList of HotelApiService if haven't hotel list for current sorting, city and pack`, () => {
       const loadList = spyOn(hotelApiService, `loadList`).and.callThrough();
@@ -153,12 +172,12 @@ describe(`HotelService`, () => {
     });
 
     it(`should emit hotelList`, () => {
-      let hotelList: IHotel[] = [];
+      let newHotelList: IHotel[] = [];
       service.hotelParams$.subscribe((hotelParams: IList<IHotel>) => {
-        hotelList = hotelParams.list;
+        newHotelList = hotelParams.list;
       });
       service.updateList(cityList[0], ESortingType.POPULAR);
-      expect(hotelList).toEqual([hotel]);
+      expect(newHotelList).toEqual([hotel]);
     });
 
     it(`should call loadList of HotelApiService with correct params`, () => {
@@ -234,12 +253,12 @@ describe(`HotelService`, () => {
     });
 
     it(`should emit favorite hotel list`, () => {
-      let hotelList: IHotel[] = [];
+      let newFavoriteHotelList: IHotel[] = [];
       service.favoriteHotelList$.subscribe((favoriteHotelList: IHotel[]) => {
-        hotelList = favoriteHotelList;
+        newFavoriteHotelList = favoriteHotelList;
       });
       service.loadFavoriteHotels();
-      expect(hotelList).toEqual([hotel]);
+      expect(newFavoriteHotelList).toEqual([hotel]);
     });
   });
 
@@ -251,23 +270,23 @@ describe(`HotelService`, () => {
     });
 
     it(`should toggle favorite status in all contained hotel maps`, () => {
-      let hotelList: IHotel[] = [];
+      let newHotelList: IHotel[] = [];
       service.hotelParams$.subscribe((hotelParams: IList<IHotel>) => {
-        hotelList = hotelParams.list;
+        newHotelList = hotelParams.list;
       });
       cityService.switchCity(cityList[0].id);
       service.updateList(cityList[0], ESortingType.POPULAR);
-      expect(hotelList[0].isFavorite).toBeFalsy();
+      expect(newHotelList[0].isFavorite).toBeFalsy();
       cityService.switchCity(cityList[1].id);
       service.updateList(cityList[1], ESortingType.LOW_PRICE);
-      expect(hotelList[0].isFavorite).toBeFalsy();
+      expect(newHotelList[0].isFavorite).toBeFalsy();
 
       service.toggleFavoriteStatus(hotelId);
 
       service.updateList(cityList[0], ESortingType.POPULAR);
-      expect(hotelList[0].isFavorite).toBeTruthy();
+      expect(newHotelList[0].isFavorite).toBeTruthy();
       service.updateList(cityList[1], ESortingType.LOW_PRICE);
-      expect(hotelList[0].isFavorite).toBeTruthy();
+      expect(newHotelList[0].isFavorite).toBeTruthy();
     });
   });
 });

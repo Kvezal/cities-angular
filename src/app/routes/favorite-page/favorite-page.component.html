@@ -1,1 +1,39 @@
-<p>favorite-page works!</p>
+<section class="favorites container" *ngIf="locationList$ | async as locationList; else emptyList">
+  <h1 class="favorites__title">Saved listing</h1>
+  <ul class="favorites__list">
+    <li class="favorites__locations-items" *ngFor="let location of locationList">
+      <div class="favorites__locations locations locations--current">
+        <div class="locations__item">
+          <app-city-link [hash]="location.city">{{location.city}}</app-city-link>
+        </div>
+      </div>
+      <div class="favorites__places">
+        <app-hotel-card
+          class="favorites__card"
+          *ngFor="let hotel of location.list"
+          [id]="hotel.id"
+          [title]="hotel.title"
+          [price]="hotel.price"
+          [rating]="hotel.rating"
+          [isPremium]="hotel.isPremium"
+          [hotelType]="hotel.type"
+          [image]="hotel.images[0]"
+          [isFavorite]="hotel.isFavorite"
+          [hasFavoriteFlag]="true"
+          cardType="small"
+          (changeIsFavoriteValue)="toggleFavoriteStatus(hotel.id)"
+        ></app-hotel-card>
+      </div>
+    </li>
+  </ul>
+</section>
+<ng-template #emptyList>
+  <section class="favorites favorites--empty">
+    <h1 class="visually-hidden">Favorites (empty)</h1>
+    <div class="favorites__status-wrapper">
+      <b class="favorites__status">Nothing yet saved.</b>
+      <p class="favorites__status-description">Save properties to narrow down search or plan yor future trips.</p>
+    </div>
+  </section>
+</ng-template>
+<app-footer class="favorite__footer"></app-footer>
