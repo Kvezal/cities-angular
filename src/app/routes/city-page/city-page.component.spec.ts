@@ -171,21 +171,56 @@ describe(`CityPageComponent`, () => {
     expect(menu).not.toBeNull();
   });
 
-  it(`should contain app-select`, () => {
-    const select = fixture.nativeElement.querySelector(`app-select`);
-    expect(select).not.toBeNull();
+  describe(`if hotelParams$ emitted not empty array`, () => {
+    it(`should contain app-select`, () => {
+      const select = fixture.nativeElement.querySelector(`app-select`);
+      expect(select).not.toBeNull();
+    });
+
+    it(`should contain app-hotel-card list`, () => {
+      const hotelCardList = fixture.nativeElement.querySelectorAll(`app-hotel-card`);
+      expect(hotelCardList).toHaveSize(HOTEL_COUNT);
+    });
+
+    it(`should contain app-map`, () => {
+      const map = fixture.nativeElement.querySelector(`app-map`);
+      expect(map).not.toBeNull();
+    });
   });
 
-  it(`should contain app-hotel-card list`, () => {
-    const hotelCardList = fixture.nativeElement.querySelectorAll(`app-hotel-card`);
-    expect(hotelCardList).toHaveSize(HOTEL_COUNT);
-  });
+  describe(`if hotelParams$ emitted empty array`, () => {
+    beforeEach(() => {
+      service.hotelParams$ = of({list: []});
+      fixture = TestBed.createComponent(CityPageComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
 
-  it(`should contain app-map`, () => {
-    const map = fixture.nativeElement.querySelector(`app-map`);
-    expect(map).not.toBeNull();
-  });
+    it(`shouldn't contain app-select`, () => {
+      const select = fixture.nativeElement.querySelector(`app-select`);
+      expect(select).toBeNull();
+    });
 
+    it(`shouldn't contain app-hotel-card list`, () => {
+      const hotelCardList = fixture.nativeElement.querySelectorAll(`app-hotel-card`);
+      expect(hotelCardList).toHaveSize(0);
+    });
+
+    it(`shouldn't contain app-map`, () => {
+      const map = fixture.nativeElement.querySelector(`app-map`);
+      expect(map).toBeNull();
+    });
+
+    it(`should contain information about empty list`, () => {
+      const emptyContainer = fixture.nativeElement.querySelector(`.cities__empty`);
+      expect(emptyContainer).not.toBeNull();
+    });
+
+    it(`should contain current city`, () => {
+      const emptyDescription = fixture.nativeElement.querySelector(`.cities__status-description`);
+      expect(emptyDescription.textContent).toMatch(cityList[0].title);
+    });
+  });
 
   describe(`switchCityByName`, () => {
     it(`should be call when active menu option changed`, () => {

@@ -18,7 +18,7 @@
 .places__sorting {
   position: relative;
   margin-bottom: 33px;
-  padding-left: 5px
+  padding-left: 5px;
 }
 
 .cities {
@@ -29,24 +29,24 @@
   -ms-flex-positive: 1;
   flex-grow: 1;
   background-color: #fff;
-  overflow-y: hidden
+  overflow-y: hidden;
 }
 
 .cities__places-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding-right: 0
+  padding-right: 0;
 }
 
 .cities__places-container--empty {
-  padding-right: 0
+  padding-right: 0;
 }
 
 .cities__no-places {
   position: relative;
   width: 498px;
-  padding-left: 18px
+  padding-left: 18px;
 }
 
 .cities__no-places::after {
@@ -60,8 +60,7 @@
   right: -48px;
   background-color: #fff;
   border-right: 6px solid #4481c3;
-  -webkit-transform: skew(-6.5deg);
-  transform: skew(-6.5deg)
+  transform: skew(-6.5deg);
 }
 
 .cities__places {
@@ -71,7 +70,7 @@
   padding-top: 29px;
   padding-bottom: 7px;
   padding-left: 9px;
-  overflow-y: auto
+  overflow-y: auto;
 }
 
 .cities__places-list {
@@ -81,33 +80,13 @@
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-left: -8px;
-  padding-left: 5px
+  padding-left: 5px;
 }
 
 .cities__place-card {
   width: 260px;
   margin-left: 8px;
-  margin-bottom: 24px
-}
-
-.page__main--index-empty .cities__right-section {
-  //background-image: url(../img/no-places@2x.png);
-  background-size: auto 119%;
-  background-repeat: no-repeat;
-  background-position: right 100%
-}
-
-@media (-webkit-min-device-pixel-ratio: 1.5),(min-resolution: 144dpi),(min-resolution: 1.5dppx) {
-  .page__main--index-empty .cities__right-section {
-    //background-image: url(../img/no-places@2x.png)
-  }
-}
-
-@media (max-height: 780px) {
-  .page__main--index-empty .cities__right-section {
-    background-position: right center;
-    background-size: 100% auto
-  }
+  margin-bottom: 24px;
 }
 
 .cities__right-section {
@@ -116,29 +95,47 @@
   display: flex;
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
-  flex-grow: 1
+  flex-grow: 1;
+}
+
+.cities__empty .cities__right-section {
+  background-image: url(../../../assets/images/no-places.png);
+  background-size: auto 119%;
+  background-repeat: no-repeat;
+  background-position: right 100%;
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5),(min-resolution: 144dpi),(min-resolution: 1.5dppx) {
+  .cities__empty .cities__right-section {
+    background-image: url(../../../assets/images/no-places@2x.png);
+  }
+}
+
+@media (max-height: 780px) {
+  .cities__empty .cities__right-section {
+    background-position: right center;
+    background-size: 100% auto;
+  }
 }
 
 .cities__map {
   width: 100%;
   -ms-flex-item-align: stretch;
   align-self: stretch;
-  //background-image: url(../img/map.jpg);
   background-size: 682px auto;
   background-repeat: no-repeat;
-  background-position: -170px center
+  background-position: -170px center;
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.5),(min-resolution: 144dpi),(min-resolution: 1.5dppx) {
   .cities__map {
-    //background-image: url(../img/map@2x.jpg);
-    background-size: 682px 794px
+    background-size: 682px 794px;
   }
 }
 
 @media (min-height: 980px) {
   .cities__map {
-    background-size: cover
+    background-size: cover;
   }
 }
 
@@ -151,17 +148,17 @@
   margin-left: auto;
   padding-top: 62px;
   text-align: center;
-  //background-image: url(../img/ico-no-results.svg);
+  background-image: url(../../../assets/images/icons/ico-no-results.svg);
   background-size: 45px 47px;
   background-position: center top;
-  background-repeat: no-repeat
+  background-repeat: no-repeat;
 }
 
 .cities__status {
   display: block;
   margin-bottom: 5px;
   font-size: 32px;
-  line-height: 1.1875
+  line-height: 1.1875;
 }
 
 .cities__status-description {
@@ -169,5 +166,5 @@
   margin-bottom: 0;
   padding: 0 45px;
   font-size: 16px;
-  line-height: 1.5
+  line-height: 1.5;
 }

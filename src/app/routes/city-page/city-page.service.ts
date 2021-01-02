@@ -18,8 +18,7 @@ import {
 import {
   ICity,
   IHotel,
-  IList,
-  IUser
+  IList
 } from '@interfaces';
 import {
   AuthService,
