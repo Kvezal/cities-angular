@@ -164,7 +164,7 @@
       <h2 class="near-places__title">Other places in the neighbourhood</h2>
       <div class="near-places__list">
         <app-hotel-card
-          *ngFor="let hotel of pageParams.nearestHotelList"
+          *ngFor="let hotel of pageParams.nearestHotelList; trackBy: trackByHotel"
           class="near-places__card"
           [id]="hotel.id"
           [title]="hotel.title"

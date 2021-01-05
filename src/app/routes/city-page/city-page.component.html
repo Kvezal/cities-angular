@@ -30,7 +30,7 @@
       ></app-select>
       <div class="cities__places-list places__list tabs__content">
         <app-hotel-card
-          *ngFor="let hotel of params.hotelParams?.list"
+          *ngFor="let hotel of params.hotelParams?.list; trackBy: trackByHotel"
           [id]="hotel.id"
           [title]="hotel.title"
           [price]="hotel.price"

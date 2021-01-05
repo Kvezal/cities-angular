@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 import { FavoritePageService } from './favorite-page.service';
 import { IFavoriteLocation } from './favorite-page.interface';
+import { IHotel } from '@interfaces';
 
 
 @Component({
@@ -27,6 +28,11 @@ export class FavoritePageComponent implements OnDestroy {
 
   public toggleFavoriteStatus(hotelId: string): void {
     this._favoritePageService.toggleFavoriteStatus(hotelId);
+  }
+
+
+  public trackByHotel(index: number, hotel: IHotel): string {
+    return hotel.id;
   }
 
 

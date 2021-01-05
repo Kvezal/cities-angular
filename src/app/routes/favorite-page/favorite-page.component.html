@@ -1,7 +1,10 @@
 <section class="favorites container" *ngIf="locationList$ | async as locationList; else emptyList">
   <h1 class="favorites__title">Saved listing</h1>
   <ul class="favorites__list">
-    <li class="favorites__locations-items" *ngFor="let location of locationList">
+    <li
+      class="favorites__locations-items"
+      *ngFor="let location of locationList"
+    >
       <div class="favorites__locations locations locations--current">
         <div class="locations__item">
           <app-city-link [hash]="location.city">{{location.city}}</app-city-link>
@@ -10,7 +13,7 @@
       <div class="favorites__places">
         <app-hotel-card
           class="favorites__card"
-          *ngFor="let hotel of location.list"
+          *ngFor="let hotel of location.list; trackBy: trackByHotel"
           [id]="hotel.id"
           [title]="hotel.title"
           [price]="hotel.price"

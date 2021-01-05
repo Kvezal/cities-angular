@@ -84,6 +84,11 @@ export class CityPageComponent implements OnInit {
   }
 
 
+  public trackByHotel(index: number, hotel: IHotel): string {
+    return hotel.id;
+  }
+
+
   private _initCityMenuFragment(): void {
     this._cityPageService.city$
       .pipe(

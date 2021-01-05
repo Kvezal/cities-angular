@@ -1,15 +1,10 @@
 import {
   ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick
+  TestBed
 } from '@angular/core/testing';
 
 import { OfferPageComponent } from './offer-page.component';
-import {
-  CommonModule,
-  Location
-} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   FavoriteFlagComponent,
   FavoriteFlagModule,
@@ -37,15 +32,9 @@ import {
   IHotel
 } from '@interfaces';
 import { IOfferPageParams } from './offer-page.interface';
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  NO_ERRORS_SCHEMA
-} from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router
-} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 const user: IUserResponse = {

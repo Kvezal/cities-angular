@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit
@@ -20,7 +19,10 @@ import {
 } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { IComment } from '@interfaces';
+import {
+  IComment,
+  IHotel
+} from '@interfaces';
 
 import { OfferPageService } from './offer-page.service';
 import { IOfferPageParams } from './offer-page.interface';
@@ -57,7 +59,6 @@ export class OfferPageComponent implements OnInit, OnDestroy {
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _offerPageService: OfferPageService,
-    private readonly _changeDetectorRef: ChangeDetectorRef,
   ) {
   }
 
@@ -97,6 +98,11 @@ export class OfferPageComponent implements OnInit, OnDestroy {
 
   public trackByFeature(index: number, feature: string): string {
     return feature;
+  }
+
+
+  public trackByHotel(index: number, hotel: IHotel): string {
+    return hotel.id;
   }
 
 
