@@ -205,11 +205,12 @@ describe(`HotelService`, () => {
       expect(loadItemById).toHaveBeenCalledTimes(1);
     });
 
-    it(`should return observable which return hotel item`, () => {
+    it(`hotel$ should emit result `, () => {
       let hotelResult: IHotel;
-      service.loadHotel(hotel.id).subscribe((newHotel: IHotel) => {
+      service.hotel$.subscribe((newHotel: IHotel) => {
         hotelResult = newHotel;
       });
+      service.loadHotel(hotel.id);
       expect(hotelResult).toEqual(hotel);
     });
 
@@ -234,6 +235,15 @@ describe(`HotelService`, () => {
         hotelId: hotel.id,
         sorting: ESortingType.NEARBY,
       });
+    });
+
+    it(`nearestHotelList$ should emit result `, () => {
+      let hotelListResult: IHotel[];
+      service.nearestHotelList$.subscribe((newHotelList: IHotel[]) => {
+        hotelListResult = newHotelList;
+      });
+      service.loadNearestHotels(hotel.id);
+      expect(hotelListResult).toEqual([hotel]);
     });
   });
 

@@ -16,7 +16,7 @@ import {
 
 import { ESortingType } from '@api';
 import {
-  IMapCity,
+  IMapLocation,
   IMapMarker,
   IMenuItem,
   ISelectOption
@@ -43,7 +43,7 @@ export class CityPageComponent implements OnInit {
   public hotelParams$: Observable<IList<IHotel>> = this._cityPageService.hotelParams$;
   public menuList$: Observable<IMenuItem[]> = this._cityPageService.menuList$;
   public sorting$: Observable<ESortingType> = this._cityPageService.sorting$;
-  public mapCityParams$: Observable<IMapCity> = this._cityPageService.mapCityParams$;
+  public mapCityParams$: Observable<IMapLocation> = this._cityPageService.mapCityParams$;
   public mapMarkerList$: Observable<IMapMarker[]> = this._cityPageService.mapMarkerList$;
 
   public sortingOptions: ISelectOption[] = this._cityPageService.sortingOptions;

@@ -9,13 +9,14 @@ import { MapService } from './map.service';
 import { LeafletProviderService } from './leaflet-provider.service';
 import {
   ELayer,
-  IMapCity,
+  IMapLocation,
   IMapMarker
 } from './map.interface';
 import { LayerMap } from './layer-map';
 
 
-const mapCity: IMapCity = {
+const mapCity: IMapLocation = {
+  id: `8c5c908d-3fc7-4a4e-af0b-57cc948898f0`,
   coords: {
     lat: 52.38333,
     lng: 4.9,

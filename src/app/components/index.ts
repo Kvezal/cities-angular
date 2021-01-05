@@ -1,6 +1,7 @@
 export * from './city-link';
 export * from './favorite-flag';
 export * from './footer';
+export * from './gallery';
 export * from './header';
 export * from './hotel-card';
 export * from './map';

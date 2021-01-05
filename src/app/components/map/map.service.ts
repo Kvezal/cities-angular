@@ -3,7 +3,7 @@ import { Icon, Map as LeafletMap, Layer, Marker } from 'leaflet';
 
 import {
   ELayer,
-  IMapCity,
+  IMapLocation,
   IMapMarker,
 } from './map.interface';
 import { LeafletProviderService } from './leaflet-provider.service';
@@ -54,15 +54,15 @@ export class MapService {
   }
 
 
-  public createMap(city: IMapCity): void {
+  public createMap(location: IMapLocation): void {
     this._map = this._leafletService
       .map(`map`, {
-        center: city.coords,
-        zoom: city.zoom,
+        center: location.coords,
+        zoom: location.zoom,
         zoomControl: false,
         layers: Array.from(this._layerSet.values()),
       })
-      .setView(city.coords, city.zoom);
+      .setView(location.coords, location.zoom);
   }
 
 

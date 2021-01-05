@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 
 import {
   HotelCardModule,
-  IMapCity,
+  IMapLocation,
   IMapMarker,
   IMenuItem,
   MapModule,
@@ -57,7 +57,8 @@ const menuList: IMenuItem[] = cityList.map((city) => ({
   name: city.title,
 }));
 
-const mapCityParams: IMapCity = {
+const mapCityParams: IMapLocation = {
+  id: `8c5c908d-3fc7-4a4e-af0b-57cc948898f0`,
   coords: {
     lat: cityList[0].location.latitude,
     lng: cityList[0].location.longitude,

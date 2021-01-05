@@ -9,7 +9,7 @@ import {
 
 import {
   ELayer,
-  IMapCity,
+  IMapLocation,
   IMapMarker,
 } from './map.interface';
 import { MapService } from './map.service';
@@ -22,16 +22,16 @@ import { MapService } from './map.service';
 })
 export class MapComponent implements AfterViewInit, OnDestroy {
   @Input()
-  set city(value: IMapCity) {
+  set location(value: IMapLocation) {
     if (!value) {
       return;
     }
-    this._city = value;
+    this._location = value;
     if (!this._isInit) {
       return;
     }
     this._mapService.removeOldMap();
-    this._mapService.createMap(this._city);
+    this._mapService.createMap(this._location);
   }
   @Input()
   set markers(list: IMapMarker[]) {
@@ -60,19 +60,19 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   public height = `100%`;
 
 
-  private _city: IMapCity;
+  private _location: IMapLocation;
 
   private _markers: IMapMarker[];
 
   private _isInit = false;
-  get(): IMapCity {
-    return this._city;
+  get(): IMapLocation {
+    return this._location;
   }
 
 
   ngAfterViewInit(): void {
     this._isInit = true;
-    this.city = this._city;
+    this.location = this._location;
     this._mapService.addLayer(ELayer.OPEN_STREET_MAP);
     this.markers = this._markers;
   }

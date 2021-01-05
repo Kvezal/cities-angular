@@ -1,8 +1,5 @@
 import { Location } from '@angular/common';
-import {
-  Component,
-  NgZone
-} from '@angular/core';
+import { Component } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -42,7 +39,6 @@ describe(`MenuComponent`, () => {
   let location: Location;
   let router: Router;
   let fixture: ComponentFixture<MenuComponent>;
-  let zone: NgZone;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -56,7 +52,7 @@ describe(`MenuComponent`, () => {
     .compileComponents();
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
-    zone = TestBed.inject(NgZone);
+    TestBed.inject(Router).initialNavigation();
     fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
   });

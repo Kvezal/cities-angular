@@ -2,13 +2,20 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
+  forwardRef,
   HostBinding,
   HostListener,
   Input,
   OnInit,
-  Output
+  Output,
+  Renderer2
 } from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
 
 import {
   ERatingSize,
@@ -21,16 +28,15 @@ import {
   templateUrl: `./rating.component.svg`,
   styleUrls: [`./rating.component.scss`],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RatingComponent),
+      multi: true,
+    }
+  ],
 })
-export class RatingComponent implements OnInit {
-  public stars: IRatingStar[];
-
-
-  @Output()
-  public changeValueOutput = new EventEmitter();
-
-
-  private _value = 0;
+export class RatingComponent implements OnInit, ControlValueAccessor {
   @Input()
   public set value(value: number) {
     this._value = value <= 0 ? 0 : value;
@@ -40,9 +46,6 @@ export class RatingComponent implements OnInit {
   public get value(): number {
     return this._value;
   }
-
-
-  private _maxValue = 5;
   @Input()
   public set maxValue(value) {
     this._maxValue = value;
@@ -54,6 +57,20 @@ export class RatingComponent implements OnInit {
   }
 
 
+  constructor(
+    private readonly _changeDetectorRef: ChangeDetectorRef,
+    private readonly _renderer: Renderer2,
+    private readonly _elementRef: ElementRef
+  ) {}
+  public stars: IRatingStar[];
+
+
+  private _value = 0;
+
+
+  private _maxValue = 5;
+
+
   @Input()
   @HostBinding(`class.clickable`)
   public isClickable = false;
@@ -62,6 +79,8 @@ export class RatingComponent implements OnInit {
   @Input()
   @HostBinding(`attr.size`)
   public size: ERatingSize = ERatingSize.NANO;
+  public _onChange = (param: any): void => {};
+  private _onTouched = (param: any): void => {};
 
 
   @HostListener(`click`, [`$event`])
@@ -69,22 +88,40 @@ export class RatingComponent implements OnInit {
     if (!this.isClickable) {
       return;
     }
+    if (event.target instanceof SVGSVGElement) {
+      this.writeValue(+event.target.id);
+      return;
+    }
     const star = (event.target as SVGRectElement).ownerSVGElement;
     if (star) {
-      const starValue = +star.id;
-      this.value = starValue;
-      this.changeValueOutput.emit(starValue);
+      this.writeValue(+star.id);
     }
   }
 
 
-  constructor(
-    private readonly _changeDetectorRef: ChangeDetectorRef
-  ) {}
-
-
   ngOnInit(): void {
     this._initStars();
+  }
+
+
+  public trackByValue(index, item): number {
+    return item;
+  }
+
+
+  public writeValue(value: number): void {
+    this.value = value;
+    this._onChange(value);
+  }
+
+
+  public registerOnChange(fn: (param: any) => void): void {
+    this._onChange = fn;
+  }
+
+
+  public registerOnTouched(fn: (param: any) => void): void {
+    this._onTouched = fn;
   }
 
 
@@ -108,10 +145,5 @@ export class RatingComponent implements OnInit {
       filling = 0;
     }
     return `${filling * 100}%`;
-  }
-
-
-  public trackByValue(index, item): number {
-    return item;
   }
 }

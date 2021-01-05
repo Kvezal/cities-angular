@@ -1,1 +1,183 @@
-<p>offer-page works!</p>
+<div
+  *ngIf="pageParams$ | async as pageParams"
+  class="offer-page"
+>
+  <section class="property">
+    <app-gallery
+      *ngIf="pageParams.hotel.images.length !== 0"
+      class="property__gallery"
+      [images]="pageParams.hotel.images"
+    ></app-gallery>
+    <div class="property__container container">
+      <div class="property__wrapper">
+        <div
+          *ngIf="pageParams.hotel.isPremium"
+          class="property__mark"
+        >
+          <span>Premium</span>
+        </div>
+        <h1 class="property__name">{{ pageParams.hotel.title }}</h1>
+        <app-favorite-flag
+          *ngIf="pageParams.isAuthorized"
+          class="property__bookmark"
+          type="large-skew"
+          [isActive]="pageParams.hotel.isFavorite"
+          (changeIsActiveOutput)="toggleFavoriteStatus(pageParams.hotel.id)"
+        ></app-favorite-flag>
+        <div class="property__rating">
+          <app-rating
+            [value]="pageParams.hotel.rating"
+            [size]="'middle'"
+          ></app-rating>
+          <span class="property__rating-value">{{pageParams.hotel.rating}}</span>
+        </div>
+        <ul class="property__features">
+          <li class="property__feature property__feature--entire">
+            {{pageParams.hotel.type}}
+          </li>
+          <li class="property__feature property__feature--bedrooms">
+            {{pageParams.hotel.bedroomCount}} Bedrooms
+          </li>
+          <li class="property__feature property__feature--adults">
+            Max {{pageParams.hotel.maxAdultCount}} adults
+          </li>
+        </ul>
+        <div class="property__price">
+          <b class="property__price-value">&euro;{{pageParams.hotel.price}}</b>
+          <span class="property__price-text">&nbsp;night</span>
+        </div>
+        <div class="property__inside">
+          <h2 class="property__inside-title">What&apos;s inside</h2>
+          <ul class="property__inside-list">
+            <li
+              *ngFor="let feature of pageParams.hotel.features; trackBy: trackByFeature"
+              class="property__inside-item"
+            >
+              {{feature}}
+            </li>
+          </ul>
+        </div>
+        <div class="property__host">
+          <h2 class="property__host-title">Meet the host</h2>
+          <div class="property__host-user user">
+            <div class="property__avatar-wrapper property__avatar-wrapper--pro">
+              <img
+                class="property__avatar"
+                [src]="pageParams.hotel.host.image"
+                width="74"
+                height="74"
+                alt="Host avatar"
+              >
+            </div>
+            <span class="property__user-name">
+              {{pageParams.hotel.host.name}}
+            </span>
+          </div>
+          <div class="property__description">
+            <p class="property__text">
+              {{pageParams.hotel.description}}
+            </p>
+          </div>
+        </div>
+        <section class="property__reviews">
+          <h2 class="property__reviews-title">
+            Reviews &middot;
+            <span class="property__reviews-amount">{{pageParams.commentList.length}}</span>
+          </h2>
+          <ul class="property__reviews-list">
+            <li
+              *ngFor="let comment of pageParams.commentList; trackBy: trackByComment"
+              class="property__reviews-item"
+            >
+              <div class="property__reviews-user">
+                <div class="property__reviews-avatar-wrapper">
+                  <img
+                    *ngIf="comment.user.image"
+                    class="property__reviews-avatar"
+                    [src]="comment.user.image"
+                    width="54"
+                    height="54"
+                    alt="Reviews avatar"
+                  >
+                </div>
+                <span class="property__reviews-user-name">{{comment.user.name}}</span>
+              </div>
+              <div class="property__reviews-info">
+                <app-rating
+                  size="small"
+                  [value]="comment.rating"
+                ></app-rating>
+                <p class="property__reviews-text">{{comment.text}}</p>
+                <time
+                  class="property__reviews-time"
+                  [dateTime]="comment.createdAt | date : 'yyyy-MM-dd'"
+                >{{comment.createdAt | date : 'MMMM y'}}</time>
+              </div>
+            </li>
+          </ul>
+          <form
+            *ngIf="pageParams.isAuthorized"
+            class="property__reviews-form"
+            [formGroup]="commentForm"
+            (ngSubmit)="submit()"
+          >
+            <label class="property__reviews-label" for="review">Your review</label>
+            <app-rating
+              class="property__reviews-rating-form"
+              formControlName="rating"
+              size="large"
+              [isClickable]="true"
+            ></app-rating>
+            <textarea
+              class="property__reviews-textarea"
+              id="review"
+              formControlName="text"
+              name="review"
+              placeholder="Tell how was your stay, what you like and what can be improved"
+            ></textarea>
+            <div class="property__reviews-button-wrapper">
+              <p class="property__reviews-help">
+                To submit review please make sure to set
+                <span class="property__reviews-star"></span>
+                rating and describe your stay with at least <b class="property__reviews-text-amount">50 characters</b>.
+              </p>
+              <button
+                class="property__reviews-submit button"
+                type="submit"
+                [disabled]="commentForm.invalid"
+              >Submit</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+    <app-map
+      class="property__map"
+      height="579px"
+      [location]="pageParams.location"
+      [markers]="pageParams.markers"
+      [activeMarkerId]="pageParams.location.id"
+    ></app-map>
+  </section>
+  <div class="container">
+    <section class="near-places">
+      <h2 class="near-places__title">Other places in the neighbourhood</h2>
+      <div class="near-places__list">
+        <app-hotel-card
+          *ngFor="let hotel of pageParams.nearestHotelList"
+          class="near-places__card"
+          [id]="hotel.id"
+          [title]="hotel.title"
+          [price]="hotel.price"
+          [rating]="hotel.rating"
+          [isPremium]="hotel.isPremium"
+          [hotelType]="hotel.type"
+          [image]="hotel.images[0]"
+          [isFavorite]="hotel.isFavorite"
+          [hasFavoriteFlag]="pageParams.isAuthorized"
+          (changeIsFavoriteValue)="toggleFavoriteStatus(hotel.id)"
+        ></app-hotel-card>
+      </div>
+    </section>
+  </div>
+</div>

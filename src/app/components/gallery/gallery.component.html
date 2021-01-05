@@ -1,0 +1,12 @@
+<img class="triangle triangle--before" src="assets/images/triangle.svg">
+<div
+  *ngFor="let image of images; trackBy: trackByImage"
+  class="image-wrapper"
+>
+  <img
+    class="image"
+    [src]="image"
+    alt="photo"
+  >
+</div>
+<img class="triangle triangle--after" src="assets/images/triangle.svg">

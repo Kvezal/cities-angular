@@ -3,13 +3,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapComponent } from './map.component';
 import { MapService } from './map.service';
 import {
-  IMapCity,
+  IMapLocation,
   IMapMarker
 } from './map.interface';
 import { LeafletProviderService } from './leaflet-provider.service';
 
 
-const mapCity: IMapCity = {
+const mapCity: IMapLocation = {
+  id: `8c5c908d-3fc7-4a4e-af0b-57cc948898f0`,
   coords: {
     lat: 52.38333,
     lng: 4.9,
@@ -92,7 +93,7 @@ describe(`MapComponent`, () => {
 
       it(`should call if city isn't empty`, () => {
         const removeOldMap = spyOn(service, `removeOldMap`);
-        component.city = mapCity;
+        component.location = mapCity;
         expect(removeOldMap).toHaveBeenCalledTimes(1);
       });
     });
@@ -105,7 +106,7 @@ describe(`MapComponent`, () => {
 
       it(`should call if city isn't empty`, () => {
         const createMap = spyOn(service, `createMap`);
-        component.city = mapCity;
+        component.location = mapCity;
         expect(createMap).toHaveBeenCalledTimes(1);
       });
     });

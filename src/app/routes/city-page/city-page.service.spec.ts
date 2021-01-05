@@ -12,7 +12,7 @@ import {
   IList
 } from '@interfaces';
 import {
-  IMapCity,
+  IMapLocation,
   IMapMarker,
   IMenuItem
 } from '@components';
@@ -51,7 +51,8 @@ const menuList: IMenuItem[] = cityList.map((city) => ({
   name: city.title,
 }));
 
-const mapCityParamsList: IMapCity[] = cityList.map((city) => ({
+const mapCityParamsList: IMapLocation[] = cityList.map((city) => ({
+  id: cityList[0].location.id,
   coords: {
     lat: cityList[0].location.latitude,
     lng: cityList[0].location.longitude,
@@ -172,8 +173,8 @@ describe(`CityPageService`, () => {
   });
 
   it(`mapCityParams$ should emit map city params when city$ emitted`, () => {
-    let newMapCityParams: IMapCity;
-    service.mapCityParams$.subscribe((emittedMapCityParams: IMapCity) => {
+    let newMapCityParams: IMapLocation;
+    service.mapCityParams$.subscribe((emittedMapCityParams: IMapLocation) => {
       newMapCityParams = emittedMapCityParams;
     });
     expect(newMapCityParams).toEqual(mapCityParamsList[0]);

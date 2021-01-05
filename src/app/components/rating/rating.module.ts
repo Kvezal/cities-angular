@@ -13,6 +13,6 @@ import { RatingComponent } from './rating.component';
   ],
   exports: [
     RatingComponent,
-  ]
+  ],
 })
 export class RatingModule { }

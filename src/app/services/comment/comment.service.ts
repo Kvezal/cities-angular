@@ -46,7 +46,13 @@ export class CommentService {
       .pipe(
         withLatestFrom(this.commentList$),
         first(),
-        map(([newComment, commentList]) => [newComment, ...commentList])
+        map(([newComment, commentList]) => {
+          const updatedCommentList = commentList.map((comment: IComment) => ({
+            ...comment,
+            rating: comment.user.id === newComment.user.id ? newComment.rating : comment.rating
+          }));
+          return [newComment, ...updatedCommentList];
+        })
       )
       .subscribe((commentList: IComment[]) => {
         this._commentListBehaviorSubject.next(commentList);

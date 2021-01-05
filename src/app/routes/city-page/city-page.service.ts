@@ -10,7 +10,7 @@ import {
   IUserResponse
 } from '@api';
 import {
-  IMapCity,
+  IMapLocation,
   IMapMarker,
   IMenuItem,
   ISelectOption
@@ -37,7 +37,7 @@ export class CityPageService {
 
   public city$: Observable<ICity> = this._cityService.city$;
 
-  public mapCityParams$: Observable<IMapCity> = this._cityService
+  public mapCityParams$: Observable<IMapLocation> = this._cityService
     .city$
     .pipe(
       map((city: ICity) => this._mapCityParams(city))
@@ -107,8 +107,9 @@ export class CityPageService {
   }
 
 
-  private _mapCityParams(city: ICity): IMapCity {
+  private _mapCityParams(city: ICity): IMapLocation {
     return {
+      id: city.location.id,
       coords: {
         lat: city.location.latitude,
         lng: city.location.longitude,

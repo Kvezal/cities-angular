@@ -1,8 +1,7 @@
 import { LatLngLiteral } from 'leaflet';
 
 
-export interface IMapCity {
-  coords: LatLngLiteral;
+export interface IMapLocation extends IMapMarker {
   zoom: number;
 }
 
