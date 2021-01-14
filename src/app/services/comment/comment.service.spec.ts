@@ -69,20 +69,6 @@ describe(`CommentService`, () => {
       service.loadList(hotelId);
       expect(loadList).toHaveBeenCalledWith(hotelId);
     });
-
-    it(`should accumulate load list`, () => {
-      let commentList: IComment[] = [];
-      service.commentList$.subscribe((newCommentList: IComment[]) => {
-        commentList = newCommentList;
-      });
-      service.loadList(hotelId);
-      expect(commentList).toEqual([comment]);
-      service.loadList(hotelId);
-      expect(commentList).toEqual([comment, comment]);
-      service.loadList(hotelId);
-      expect(commentList).toEqual([comment, comment, comment]);
-
-    });
   });
 
   describe(`create`, () => {

@@ -32,9 +32,7 @@ export class CommentService {
     this._commentApiService
       .loadList(hotelId)
       .pipe(
-        withLatestFrom(this._commentListBehaviorSubject),
-        first(),
-        map(([newCommentList, oldCommentList]) => [...oldCommentList, ...newCommentList])
+        first()
       )
       .subscribe((commentList: IComment[]) => this._commentListBehaviorSubject.next(commentList));
   }
