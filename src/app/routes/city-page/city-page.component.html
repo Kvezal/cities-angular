@@ -21,7 +21,7 @@
   >
     <section class="cities__places places">
       <h2 class="visually-hidden">Places</h2>
-      <b class="places__found">{{params.hotelParams.list.length}} places to stay in Amsterdam</b>
+      <b class="places__found">{{params.hotelParams.list.length}} places to stay in {{params.city.title}}</b>
       <app-select
         class="places__sorting"
         [options]="sortingOptions"
