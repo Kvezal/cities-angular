@@ -1,5 +1,13 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {
+  Routes,
+  RouterModule
+} from '@angular/router';
+
+import {
+  IsAuthorizedGuard,
+  IsUnauthorizedGuard
+} from '@guards';
 
 
 const routes: Routes = [
@@ -14,15 +22,18 @@ const routes: Routes = [
   {
     path: `favorite`,
     loadChildren: () => import(`./routes/favorite-page/favorite-page.module`).then(module => module.FavoritePageModule),
+    canActivate: [IsAuthorizedGuard],
   },
   {
     path: `login`,
     loadChildren: () => import(`./routes/login-page/login-page.module`).then(module => module.LoginPageModule),
+    canActivate: [IsUnauthorizedGuard],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'corrected' })],
+  imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'corrected'})],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

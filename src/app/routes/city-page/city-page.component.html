@@ -17,7 +17,7 @@
 >
   <div
     class="cities__places-container container"
-    *ngIf="params.hotelParams?.list.length !== 0; else emptyList"
+    *ngIf="params.hotelParams?.list.length > 0; else emptyList"
   >
     <section class="cities__places places">
       <h2 class="visually-hidden">Places</h2>
@@ -56,7 +56,7 @@
   </div>
 
   <ng-template #emptyList>
-    <div class="cities__places-container cities__empty container">
+    <div class="cities__places-container cities__empty container" *ngIf="params.hotelParams !== null && params.city">
       <section class="cities__no-places">
         <div class="cities__status-wrapper tabs__content">
           <b class="cities__status">No places to stay available</b>
